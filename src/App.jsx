@@ -1,14 +1,8 @@
-  import './App.css'
-import { EmpolyDashBoard } from './Components/index.js'
+import React from 'react'
 
- function App() {
- 
+function App() {
   return (
-    <>
-    <div id='main' className='h-screen w-full bg-black'>
-       <EmpolyDashBoard/>
-      </div>
-    </>
+    <div>App</div>
   )
 }
 

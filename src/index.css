@@ -1,4 +1,38 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
- 
+@import "tailwindcss";
+
+@theme {
+  /* 🌑 Base Backgrounds */
+  --color-bg: #000000;             /* Primary Background – main page background */
+  --color-surface: #121212;        /* Surface Background – cards, panels, modals */
+  --color-navbar: #1F1F1F;         /* Navbar / Sidebar – slightly lifted surface */
+
+  /* 📏 Borders */
+  --color-border: #333333;         /* Default Border / Divider – tables, cards, etc. */
+  --color-border-secondary: #444444; /* Secondary Border – used for emphasis or layering */
+
+  /* 📝 Text Colors */
+  --color-text-primary: #E0E0E0;   /* Primary Text – headings, main body text */
+  --color-text-secondary: #9CA3AF; /* Secondary Text – muted text, descriptions */
+  --color-text-disabled: #6B7280;  /* Disabled Text – inputs, buttons, tooltips */
+
+  /* 💠 Accent Colors */
+  --color-primary:#009F8E;        /* Primary Accent – buttons, icons, links */
+  --color-primary-hover: #12C4D3;  /* Accent Hover – hover state for buttons/links */
+  --color-primary-pressed: #0E939E;/* Accent Pressed – active tab, click feedback */
+  --color-primary-light: #67E6F1;  /* Light Accent – gradients, soft backgrounds */
+  --color-primary-xlight: #9CEFF6; /* Extra Light Accent – badges, very soft emphasis */
+
+  /* ✅ Status / Alerts */
+  --color-success: #00BF6B;        /* Success – completed actions, confirmation messages */
+  --color-warning: #FFC107;        /* Warning – caution messages or icons */
+  --color-error: #EF4444;          /* Error – validation messages, critical alerts */
+}
+
+/* 🌍 Optional global background and text setup */
+:root {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+.Tasks:webkit-scrollbar {
+ display: none; /* Hide scrollbar for a cleaner look */}
