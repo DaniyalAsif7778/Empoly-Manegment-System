@@ -1,12 +1,19 @@
 import React from 'react'
- import  {AdminDashbord, EmpolyDashBoard}   from '../../imports'
-function Home() {
+ import  {AdminDashbord, EmpolyDashBoard}   from '../../imports';
+  import { useAuthContext } from '../../context/AuthContex';
+function Home(  ) {
+ 
+ const { data } = useAuthContext() 
+ console.log("home", data);
+ 
+  
   return (
-     <> 
-     <div className='h-screen w-full'>
+     
+     <div className='  '>
+     
      {/* < EmpolyDashBoard/> */}
-     <AdminDashbord/>
-     </div></>
+      {/* <AdminDashbord/>   */}
+     </div> 
   )
 }
 

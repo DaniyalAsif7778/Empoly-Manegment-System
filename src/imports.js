@@ -9,4 +9,5 @@ import   Footer from "./componenets/Footer/Footer.jsx";
  import TaskListInfo from "./others/TaskListInfo.jsx";
  import TasksList from "./others/TasksList.jsx";
  import AdminForm from "./others/AdminForm.jsx";
-export  {Login, Singup, Header,Footer,AdminDashbord,EmpolyDashBoard ,EmpolyDashBordHeader,Home,TaskListInfo,TasksList, AdminForm  };
+ import success from './others/success.jsx'
+ export  {Login, Singup, Header,Footer,AdminDashbord,EmpolyDashBoard ,EmpolyDashBordHeader,Home,TaskListInfo,TasksList, AdminForm ,success   };

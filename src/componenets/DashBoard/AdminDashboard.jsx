@@ -1,12 +1,19 @@
 import React from 'react'
-import { AdminForm } from '../../imports'
+import { AdminForm ,EmpolyDashBordHeader } from '../../imports'
+ import { useAuthContext } from '../../context/AuthContex'
 function AdminDashbord() {
+ const {currentadmin} = useAuthContext();
+    console.log(currentadmin);
+
   return (
-    < >
-    <div className='w-full h-screen  '>
+    <div >
+     {!currentadmin ?  (<div className='w-full h-screen  flex items-center justify-center'><h1>Please Login...</h1></div>):  ( <div className='w-full h-full  '>
+     
+     <EmpolyDashBordHeader/> 
    <AdminForm/>
-      </div> 
-    </ >
+     </div> ) }
+  
+    </div >
   )
 }
 

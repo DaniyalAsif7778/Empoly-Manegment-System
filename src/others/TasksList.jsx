@@ -2,7 +2,7 @@ import React from "react";
 
 function TasksList() {
   return (
-    <>
+   
       <div   className="Tasks  w-full h-[300px] p-4 mt-10 rounded-lg border border-border bg-surface overflow-scroll ">
         <div className="Task  bg-navbar rounded-md">
           <div className="flex flex-row  justify-between items-center px-4 py-2">
@@ -49,7 +49,7 @@ function TasksList() {
           </div>
         </div>
       </div>
-    </>
+    
   );
 }
 
