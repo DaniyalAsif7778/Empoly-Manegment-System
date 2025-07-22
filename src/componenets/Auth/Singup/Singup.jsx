@@ -27,107 +27,93 @@ function Singup() {
       alert("Please fill all fields correctly");
       return;
     }
-
-    if  (
-      role.trim() === "Admin" &&
-      data.App.find(
-        (item) => item.Admin.trim()  === name.trim().toLowerCase()
-      )
-      ) {
-      setErrorName("Already Taken");
-      } else if (
-      role.trim() === "Admin" &&
-      data.App.find(
-        (item) => item.Email.trim().toLowerCase() === email.trim().toLowerCase()
-      )
-      ) {
-      setErrorEmail("Already Taken");
-      } else if (
-      role.trim() === "Admin" &&
-      data.App.find(
-        (item) =>
-          item.password.trim().toLowerCase() === password.trim().toLowerCase()
-      )
-       ) {
-        setErrorPassword("Already Taken");
-       } else if (name && email && password && role.trim() == "Admin") {
-      addAdmin({
-        id: uuidv4(),
-        Admin: name.trim(),
-        Email: email.trim(),
-        password: password.trim(),
-        loginStatus: true,
-        Employees: [
-          {
-            id: "",
-            userName: "Daniyal Asif",
-
-            Email: "user@.com",
-
-            password: 1236576,
-            tasks: [],
-          },
-        ],
-      });
-
-      // reset form fields
-      setName("");
-      setEmail("");
-      setPassword("");
-      setRole("");
-
-      // navigate
-      navigate("/admindashboard");
-       } else if (
-      role.trim() == "Admin" &&
-      name.trim() == "" &&
-      email.trim() == "" &&
-      password.trim() == ""
-       ) {
-        alert("Please fill all fields correctly");
-    } 
-
-      const checkuserPresense = data.App.some((admins)=>{
-         admins.Employees.some((user)=> user.userName ==  name.trim() && user.Email ==email.trim())  
+    if(role.trim() =="Admin"){
+      if  (
         
-      })
+        data.App.find(
+          (item) => item.Admin.trim()  === name.trim().toLowerCase()
+        )
+        ) {
+        setErrorName("Already Taken");
+        } else if (
        
+        data.App.find(
+          (item) => item.Email.trim().toLowerCase() === email.trim().toLowerCase()
+        )
+        ) {
+        setErrorEmail("Already Taken");
+        } else if (
+        
+        data.App.find(
+          (item) =>
+            item.password.trim().toLowerCase() === password.trim().toLowerCase()
+        )
+         ) {
+          setErrorPassword("Already Taken");
+         }else  {
+        addAdmin({
+          id: uuidv4(),
+          Admin: name.trim(),
+          Email: email.trim(),
+          password: password.trim(),
+          loginStatus: true ,
+          Employees: [
+            
+          ],
+        });
+  
+        // reset form fields
+        setName("");
+        setEmail("");
+        setPassword("");
+        setRole("");
+  
+        // navigate
+        navigate("/admindashboard");
+         }  
+    }
+
+   if (role.trim() == "Employee") {
+    if (
      
-      
-    if (   role.trim() == "Employee" &&
-           data.App.some((admins)=>{
-          admins.Employees.some((user)=> user.userName ==  name.trim() )
-       
-     })
-      
-          
-     ) {
-      setErrorName("Already Taken");
-     } else if ( role.trim() == "Employee" &&
-      
-      data.App.some((admins)=>{
-        admins.Employees.some((user)=> user.password ==  password.trim() )
-       
-     })
-      ) {
-       setErrorPassword("Already Taken");
-      } else {
+      data.App.some((admins) => {
+        return admins.Employees.some((user) => user.userName.trim().toLowerCase() === name.trim().toLowerCase());
+      })
+    ) {
+      setErrorName("Username already taken");
+    } else if (
+    
+      data.App.some((admins) => {
+        return admins.Employees.some((user) => user.password.trim().toLowerCase() === password.trim().toLowerCase());
+      })
+    ) {
+      setErrorPassword("Password already taken");
+    } else {
+      // add user
       addUser({ 
         id: uuidv4(),
-        userName: name,
-
-        Email: email,
-
-        password: password,
+        userName:name.trim(),
+  
+        Email: email.trim(),
+  
+        password: password.trim(),
+        loginStatus:true ,
         tasks: [],
       });
-
+  navigate("/employedashboard")
       // reset form fields
       setName("");
       setEmail("");
       setPassword("");
       setRole("");
+      setErrorName(" ");
+      setErrorPassword("");
     }
+   }
+    
+  
+    
+   
   };
 
   return (

@@ -3,7 +3,7 @@ import {  NavLink } from 'react-router'
 
 import { useAuthContext } from '../../context/AuthContex'
 function Header() {
-  const { currentadmin } = useAuthContext();
+  const { currentadmin ,currentuser} = useAuthContext();
 
 
 
@@ -23,9 +23,9 @@ function Header() {
           <ul className=' hidden sm:flex  gap-5  '>
             <li> <NavLink to="/" className="hover:text-primary-hover   transition">Home</NavLink></li>
             <li> < NavLink to="/" className="hover:text-primary-hover transition">About</NavLink></li>
-            { currentadmin.loginStatus ? (<li> < NavLink to="/admindashboard" className=" m-0 hover:text-primary-hover transition"> Dashbord</NavLink></li>) : (<li>< NavLink to="/singup" className=" m-0 hover:text-primary-hover transition" >Sign Up</NavLink></li>)}
-
- 
+            { currentadmin.loginStatus ? (<li> < NavLink to="/admindashboard" className=" m-0 hover:text-primary-hover transition"> Dashbord</NavLink></li>) :""}
+               {currentuser.loginStatus ?  (<li> < NavLink to="/employedashboard" className=" m-0 hover:text-primary-hover transition"> Dashbord</NavLink></li>) : "" }
+                 {  currentadmin.loginStatus==false  &&  currentuser.loginStatus ==false ? (   <li> <NavLink to="/singup" className="   hover:text-primary-hover transition">Sing up</NavLink></li>): ""}
             <li> <NavLink to="/login" className="   hover:text-primary-hover transition">Login</NavLink></li>
 
 
