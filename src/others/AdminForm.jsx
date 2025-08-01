@@ -26,6 +26,7 @@ function AdminForm() {
       assignedTo: assignedTo.trim(), // keep your existing key or rename in context
       category: category.trim(),
       description: description.trim(),
+      taskStatus:null,
     });
 
     // Reset form

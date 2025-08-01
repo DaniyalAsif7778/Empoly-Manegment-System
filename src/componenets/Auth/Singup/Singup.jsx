@@ -98,7 +98,9 @@ function Singup() {
   
         password: password.trim(),
         loginStatus:true ,
-        tasks: [],
+        tasks: [ 
+          
+        ],
       });
   navigate("/employedashboard")
       // reset form fields
