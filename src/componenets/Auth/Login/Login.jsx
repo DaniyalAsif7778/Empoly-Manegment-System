@@ -7,12 +7,12 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { data, setData, setCurrentAdmin, setCurrentUser } = useAuthContext()
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   // const [showpassword,setShowPassword] =useState("password");
   const LoginHandler = (e) => {
     e.preventDefault();
     const checkloginstatusofUser = data.App.some((admins) => {
-      return admins.Employees.some((user) => user.Email.trim().toLowerCase() == email.trim().toLowerCase() && user.password.trim().toLowerCase() == password.trim().toLowerCase());
+      return admins.Employees.some((user) => user.Email.trim().toLowerCase() === email.trim().toLowerCase() && user.password.trim().toLowerCase() == password.trim().toLowerCase());
     })
     const checkpresenceofAdmin = data.App.find((admins) => admins.password == password && admins.Email == email)
     const checkloginstatusofAdmin = data.App.find((admins) => admins.password == password && admins.Email == email && admins.loginStatus == true)
@@ -37,7 +37,7 @@ function Login() {
           if (admin.password == password) {
             return {
               ...admin,
-              loginStatus: true 
+              loginStatus: true
             }
           }
           return admin;
@@ -47,7 +47,7 @@ function Login() {
       })
 
       )
- navigate("/admindashboard")
+      navigate("/admindashboard")
     } else if (checkloginstatusofAdmin) {
       alert("you are already login")
     }
@@ -74,23 +74,23 @@ function Login() {
         })
       })
 
-     setData((prevData)=>({
-          
-            App: prevData.App.map((admin)=>{
-              return{
-                ...admin,
-                Employees: admin.Employees.map((employee)=>{
-                  
-                      if (employee.Email == email && employee.password == password) {
-                           return{...employee, loginStatus:true}
-                      }
-                      return employee;
-                })
-              }
-            })
+      setData((prevData) => ({
 
-     }))
-     navigate("/employedashboard")
+        App: prevData.App.map((admin) => {
+          return {
+            ...admin,
+            Employees: admin.Employees.map((employee) => {
+
+              if (employee.Email == email && employee.password == password) {
+                return { ...employee, loginStatus: true }
+              }
+              return employee;
+            })
+          }
+        })
+
+      }))
+      navigate("/employedashboard")
     }
   }
 
@@ -121,7 +121,7 @@ function Login() {
                   id="Email"
                   type="Email"
                   placeholder="Email"
-                  className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
+                  className="w-full border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition rounded-md p-2 text-text-secondary"
                 />
               </div>
 
@@ -135,7 +135,7 @@ function Login() {
                   id="Password"
                   type='password'
                   placeholder="Password"
-                  className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
+                  className="w-full border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition rounded-md p-2 text-text-secondary"
                 />
                 <div className="flex justify-end pr-3 text-text-secondary w-full" onClick={() => {
 

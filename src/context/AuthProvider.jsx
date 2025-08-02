@@ -56,8 +56,78 @@ export const AuthProvider = ({ children }) => {
   };
 
 
-  const deleteAdmin = () => { };
-  const updateAdmin = () => { };
+  // const deleteAdmin = () => { };
+  const updateAdmin = (name, email,password) => {
+    if (name && email) {
+
+      setData((prevData) => ({
+        App: prevData.App.map((admins) => {
+          if (currentadmin.id == admins.id) {
+            return {
+              ...admins,
+
+              Admin: name,
+              Email: email,
+               Employees:admins.Employees.map((employees)=>{
+                   return{
+                    ...employees,
+                    Email:email,
+                   }
+               })
+            }
+          }
+          return admins;
+        })
+      }))
+
+
+      setCurrentAdmin((admin) => {
+
+        return {
+          ...admin,
+          Admin: name,
+          Email: email,
+          Employees: admin.Employees.map((employee) => {
+            return {
+              ...employee,
+              Email: email,
+            }
+          })
+        }
+
+      })
+
+
+    } else {
+      alert("please fill all fields")
+    }
+    
+
+    if (password) {
+      setData((prevData) => ({
+        App: prevData.App.map((admins) => {
+          if (currentadmin.id == admins.id) {
+            return {
+              ...admins,
+ 
+               password:password,
+            }
+          }
+          return admins;
+        })
+      }))
+      setCurrentAdmin((admin) => {
+
+        return {
+          ...admin,
+          password:password,
+           
+        }
+
+      })
+    }
+
+  };
 
   const addUser = (userData) => {
     setData((prevData) => ({
@@ -75,9 +145,11 @@ export const AuthProvider = ({ children }) => {
     }));
     setCurrentUser(userData)
   };
-  const deleteUser = () => { };
+  // const deleteUser = () => { };
   const updateUser = () => { };
+   
 
+   
 
   const addTask = (taskData) => {
     setData((prevData) => ({
@@ -108,10 +180,14 @@ export const AuthProvider = ({ children }) => {
       return {
         ...admin,
         Employees: admin.Employees.map((employee) => {
-          return {
-            ...employee,
-            tasks: [...employee.tasks, taskData]
+          if (employee.userName === taskData.assignedTo) {
+            return {
+              ...employee,
+              tasks: [...employee.tasks, taskData]
+            }
           }
+          return employee;
+
         })
       }
 
@@ -120,7 +196,8 @@ export const AuthProvider = ({ children }) => {
 
 
 
-
+ console.log(Array.isArray(currentadmin));
+ 
 
 
 
@@ -160,7 +237,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ data, setData, addAdmin, addUser, currentadmin, setCurrentAdmin, currentuser, setCurrentUser, addTask, statusUpdater }}>
+    <AuthContext.Provider value={{ data, setData, addAdmin, addUser, currentadmin, setCurrentAdmin, currentuser, setCurrentUser, addTask, statusUpdater, updateAdmin }}>
       {children}
     </AuthContext.Provider>
   );

@@ -57,9 +57,7 @@ function Singup() {
           Email: email.trim(),
           password: password.trim(),
           loginStatus: true ,
-          Employees: [
-            
-          ],
+          Employees: [],
         });
   
         // reset form fields
