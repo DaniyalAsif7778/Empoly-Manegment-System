@@ -5,12 +5,21 @@ function ChangePassword() {
 
   const [newpassword , setNewPassword] = useState();
   const [conformpassword , setConformPassword] = useState();
-  const {updateAdmin}=useAuthContext();
+  const {updateAdmin,currentadmin, updateUser,currentuser}=useAuthContext();
      const passwordChanger =()=>{
-      if (newpassword === conformpassword) {
-        updateAdmin(undefined, undefined , newpassword)
-      }else{
-        alert("please conform password corectly")
+      if (currentadmin.loginStatus === true) {
+        if (newpassword === conformpassword) {
+          updateAdmin(undefined, undefined , newpassword)
+        }else{
+          alert("please conform password corectly")
+        }
+      }
+      if ( currentuser.loginStatus === true) {
+        if (newpassword === conformpassword) {
+           updateUser( undefined , newpassword)
+        }else{
+          alert("please conform password corectly")
+        }
       }
      setConformPassword("")
      setNewPassword("")

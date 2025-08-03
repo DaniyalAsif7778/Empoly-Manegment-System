@@ -31,7 +31,7 @@ function Singup() {
       if  (
         
         data.App.find(
-          (item) => item.Admin.trim()  === name.trim().toLowerCase()
+          (item) => item.Admin  === name.trim().toLowerCase()
         )
         ) {
         setErrorName("Already Taken");

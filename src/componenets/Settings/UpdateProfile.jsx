@@ -3,17 +3,25 @@ import { useState } from 'react'
 import { useAuthContext } from '../../context/AuthContex';
 function UpdateProfile() {
   const [name, setName] = useState();
+const [oldname , setOldName] = useState();
   const [email, setEmail] = useState();
-  const { updateAdmin, currentadmin } = useAuthContext();
+  const { updateAdmin,updateUser, currentadmin,currentuser } = useAuthContext();
 
   const credentialUpdateHandler = () => {
     if (currentadmin.loginStatus === true) {
       updateAdmin(name, email);
-    } else {
-      alert("please login first")
+    }  
+    if (currentuser.loginStatus === true) {
+      if (oldname === currentuser.userName) {
+        updateUser(name,undefined)
+
+      }else{
+        alert("oldName is incorrect")
+      }
     }
     setName("")
     setEmail("")
+    setOldName("")
   }
 
 
@@ -49,10 +57,10 @@ function UpdateProfile() {
 
         <input
           type="text"
-          value={name}
+          value={oldname}
 
           onChange={(e) => {
-            setName(e.target.value)
+             setOldName(e.target.value)
           }}
           placeholder=" Old Name"
           className="bg-[var(--color-navbar)] text-white px-4 py-3 rounded-lg border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition"

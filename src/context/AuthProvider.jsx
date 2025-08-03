@@ -56,8 +56,7 @@ export const AuthProvider = ({ children }) => {
   };
 
 
-  // const deleteAdmin = () => { };
-  const updateAdmin = (name, email,password) => {
+  const updateAdmin = (name, email, password) => {
     if (name && email) {
 
       setData((prevData) => ({
@@ -68,12 +67,12 @@ export const AuthProvider = ({ children }) => {
 
               Admin: name,
               Email: email,
-               Employees:admins.Employees.map((employees)=>{
-                   return{
-                    ...employees,
-                    Email:email,
-                   }
-               })
+              Employees: admins.Employees.map((employees) => {
+                return {
+                  ...employees,
+                  Email: email,
+                }
+              })
             }
           }
           return admins;
@@ -101,7 +100,8 @@ export const AuthProvider = ({ children }) => {
     } else {
       alert("please fill all fields")
     }
-    
+
+
 
     if (password) {
       setData((prevData) => ({
@@ -109,8 +109,8 @@ export const AuthProvider = ({ children }) => {
           if (currentadmin.id == admins.id) {
             return {
               ...admins,
- 
-               password:password,
+
+              password: password,
             }
           }
           return admins;
@@ -120,13 +120,32 @@ export const AuthProvider = ({ children }) => {
 
         return {
           ...admin,
-          password:password,
-           
+          password: password,
+
         }
 
       })
     }
 
+  };
+
+  const deleteAdmin = () => {
+
+    setData((prevData) => ({
+      App: prevData.App.filter((admins) => !(admins.id === currentadmin.id && admins.Admin === currentadmin.Admin))
+    }))
+
+
+
+    setCurrentAdmin((admin) => {
+      let adminidCheck = data.App.find((admins) => admins.id == admin.id)
+
+      if (adminidCheck) {
+        return {loginStatus:false,}
+      }
+      return admin;
+    })
+    
   };
 
   const addUser = (userData) => {
@@ -146,10 +165,76 @@ export const AuthProvider = ({ children }) => {
     setCurrentUser(userData)
   };
   // const deleteUser = () => { };
-  const updateUser = () => { };
-   
+  const updateUser = (name, password) => {
+    if (name) {
 
-   
+      setData((prevData) => ({
+        App: prevData.App.map((admins) => {
+          return {
+            ...admins,
+            Employees: admins.Employees.map((employee) => {
+              if (employee.id === currentuser.id) {
+                return {
+                  ...employee,
+                  userName: name,
+                }
+              }
+              return employee;
+            })
+          }
+        })
+      }))
+
+      setCurrentUser((employee) => {
+        let useridChecker = data.App.map((admins) => {
+          admins.Employees.find((employees) => employee.id == employees.id)
+        })
+        if (useridChecker) {
+          return {
+            ...employee,
+            userName: name,
+          }
+        }
+        return employee;
+      })
+    }
+
+    if (password) {
+
+      setData((prevData) => ({
+        App: prevData.App.map((admins) => {
+          return {
+            ...admins,
+            Employees: admins.Employees.map((employee) => {
+              if (employee.id === currentuser.id) {
+                return {
+                  ...employee,
+                  password: password,
+                }
+              }
+              return employee;
+            })
+          }
+        })
+      }))
+
+      setCurrentUser((employee) => {
+        let useridChecker = data.App.map((admins) => {
+          admins.Employees.find((employees) => employee.id == employees.id)
+        })
+        if (useridChecker) {
+          return {
+            ...employee,
+            password: password,
+          }
+        }
+        return employee;
+      })
+    }
+  };
+
+
+
 
   const addTask = (taskData) => {
     setData((prevData) => ({
@@ -196,14 +281,13 @@ export const AuthProvider = ({ children }) => {
 
 
 
- console.log(Array.isArray(currentadmin));
- 
+  console.log(Array.isArray(currentadmin));
+
 
 
 
   const deleteTask = () => { };
-  const updateTask = () => { };
-
+ 
   // status updater;
   const statusUpdater = (status, index) => {
 
@@ -237,7 +321,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ data, setData, addAdmin, addUser, currentadmin, setCurrentAdmin, currentuser, setCurrentUser, addTask, statusUpdater, updateAdmin }}>
+    <AuthContext.Provider value={{ data, setData, addAdmin, addUser, currentadmin, setCurrentAdmin, currentuser, setCurrentUser, addTask, statusUpdater, updateAdmin, deleteAdmin,updateUser }}>
       {children}
     </AuthContext.Provider>
   );

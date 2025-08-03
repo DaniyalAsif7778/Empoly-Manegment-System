@@ -66,10 +66,17 @@ function Header() {
               <li>
                 <NavLink to="/singup" className="hover:text-primary-hover transition">Sign up</NavLink>
               </li>
+              
+            
             )}
-            <li>
+              {!currentadmin.loginStatus && !currentuser.loginStatus && (
+              <li>
               <NavLink to="/login" className="hover:text-primary-hover transition">Login</NavLink>
             </li>
+              
+            
+            )}
+              
           </ul>
         </nav>
       </div>
