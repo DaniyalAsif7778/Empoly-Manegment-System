@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import toast from "react-hot-toast";
 import { AuthContext } from "./AuthContex";
 
 export const AuthProvider = ({ children }) => {
@@ -235,50 +235,69 @@ export const AuthProvider = ({ children }) => {
 
 
 
-
   const addTask = (taskData) => {
-    setData((prevData) => ({
-      App: prevData.App.map((admins) => {
-        if (admins.id === currentadmin.id) {
-          return {
-            ...admins,
-            Employees: admins.Employees.map((employee) => {
-              if (employee.userName == taskData.assignedTo) {
-                return {
-                  ...employee,
-                  tasks: [...employee.tasks, taskData]
-                }
-              }
-              return employee;
-            })
-
-          }
-
+    let userFound = false;
+  
+    // 🔍 Check if assignedTo exists in any employee
+    data.App.forEach((admin) => {
+      admin.Employees.forEach((employee) => {
+        if (employee.userName === taskData.assignedTo) {
+          userFound = true;
         }
-        return admins;
-      }
-
-
-      )
-    }))
-    setCurrentAdmin((admin) => {
-      return {
-        ...admin,
-        Employees: admin.Employees.map((employee) => {
-          if (employee.userName === taskData.assignedTo) {
+      });
+    });
+  
+    if (!userFound) {
+      toast.error("User not found");
+      return;
+    }
+  
+    // ✅ Show loading toast before adding
+    const toastId = toast.loading("Creating task...");
+  
+    setTimeout(() => {
+      // Set data in App
+      setData((prevData) => ({
+        App: prevData.App.map((admins) => {
+          if (admins.id === currentadmin.id) {
             return {
-              ...employee,
-              tasks: [...employee.tasks, taskData]
-            }
+              ...admins,
+              Employees: admins.Employees.map((employee) => {
+                if (employee.userName === taskData.assignedTo) {
+                  return {
+                    ...employee,
+                    tasks: [...employee.tasks, taskData],
+                  };
+                }
+                return employee;
+              }),
+            };
           }
-          return employee;
-
-        })
-      }
-
-    })
-  }
-
+          return admins;
+        }),
+      }));
+  
+      // Set data in currentAdmin
+      setCurrentAdmin((admin) => {
+        return {
+          ...admin,
+          Employees: admin.Employees.map((employee) => {
+            if (employee.userName === taskData.assignedTo) {
+              return {
+                ...employee,
+                tasks: [...employee.tasks, taskData],
+              };
+            }
+            return employee;
+          }),
+        };
+      });
+  
+      toast.dismiss(toastId);
+      toast.success("Task created successfully!");
+    }, 2000);
+  };
+  
 
 
   console.log(Array.isArray(currentadmin));

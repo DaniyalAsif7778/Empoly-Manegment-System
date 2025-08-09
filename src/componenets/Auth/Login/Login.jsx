@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useAuthContext } from '../../../context/AuthContex';
 import { useNavigate } from 'react-router';
+ import toast from 'react-hot-toast';
 function Login() {
 
   const [email, setEmail] = useState("");
@@ -12,86 +13,108 @@ function Login() {
   const LoginHandler = (e) => {
     e.preventDefault();
     const checkloginstatusofUser = data.App.some((admins) => {
-      return admins.Employees.some((user) => user.Email.trim().toLowerCase() === email.trim().toLowerCase() && user.password.trim().toLowerCase() == password.trim().toLowerCase());
-    })
-    const checkpresenceofAdmin = data.App.find((admins) => admins.password == password && admins.Email == email)
-    const checkloginstatusofAdmin = data.App.find((admins) => admins.password == password && admins.Email == email && admins.loginStatus == true)
-    if (email.trim() && password.trim() && checkpresenceofAdmin && !checkloginstatusofAdmin) {
-
+      return admins.Employees.some(
+        (user) =>
+          user.Email.trim().toLowerCase() === email.trim().toLowerCase() &&
+          user.password.trim().toLowerCase() === password.trim().toLowerCase()
+      );
+    });
+    
+    const checkpresenceofAdmin = data.App.find(
+      (admins) => admins.password == password && admins.Email == email
+    );
+    
+    const checkloginstatusofAdmin = data.App.find(
+      (admins) =>
+        admins.password == password &&
+        admins.Email == email &&
+        admins.loginStatus == true
+    );
+    
+    // ✅ Admin Login Flow
+    if (
+      email.trim() &&
+      password.trim() &&
+      checkpresenceofAdmin &&
+      !checkloginstatusofAdmin
+    ) {
       data.App.find((admin) => {
         if (admin.password == password) {
-
-
-          setCurrentAdmin({ ...admin, loginStatus: true })
-
-
+          setCurrentAdmin({ ...admin, loginStatus: true });
           setEmail("");
           setPassword("");
         }
-
-      })
-
+      });
+    
       setData((prevData) => ({
         ...prevData,
         App: prevData.App.map((admin) => {
           if (admin.password == password) {
             return {
               ...admin,
-              loginStatus: true
-            }
+              loginStatus: true,
+            };
           }
           return admin;
-
-        })
-
-      })
-
-      )
-      navigate("/admindashboard")
-    } else if (checkloginstatusofAdmin) {
-      alert("you are already login")
+        }),
+      }));
+    
+      // ✅ Add loading + success toast
+      const toastId = toast.loading("Logging in...");
+    
+      setTimeout(() => {
+        toast.dismiss(toastId);
+        toast.success("Admin logged in successfully!");
+        navigate("/admindashboard");
+      }, 2000);
     }
+    
+    // ✅ Already Logged In
+    else if (checkloginstatusofAdmin) {
+      toast.error("You are already logged in as Admin");
+    }
+    
+    // ✅ Admin Not Found
     else if (!checkpresenceofAdmin && !checkloginstatusofUser) {
-      alert("Admin not Found")
+      toast.error("Admin not found");
     }
-
-
-
+    
+    // ✅ Employee Login Flow
     if (checkloginstatusofUser) {
-
       data.App.find((admin) => {
         admin.Employees.some((employee) => {
           if (employee.password == password) {
-
-
-            setCurrentUser({ ...employee, loginStatus: true })
-
-
+            setCurrentUser({ ...employee, loginStatus: true });
             setEmail("");
             setPassword("");
           }
-
-        })
-      })
-
+        });
+      });
+    
       setData((prevData) => ({
-
         App: prevData.App.map((admin) => {
           return {
             ...admin,
             Employees: admin.Employees.map((employee) => {
-
               if (employee.Email == email && employee.password == password) {
-                return { ...employee, loginStatus: true }
+                return { ...employee, loginStatus: true };
               }
               return employee;
-            })
-          }
-        })
-
-      }))
-      navigate("/employedashboard")
+            }),
+          };
+        }),
+      }));
+    
+      // ✅ Add loading + success toast
+      const toastId = toast.loading("Logging in...");
+    
+      setTimeout(() => {
+        toast.dismiss(toastId);
+        toast.success("Employee logged in successfully!");
+        navigate("/employedashboard");
+      }, 2000);
     }
+    
   }
 
 
