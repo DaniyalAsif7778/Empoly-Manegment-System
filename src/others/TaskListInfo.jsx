@@ -1,6 +1,6 @@
-import React from 'react'
-
+ 
 function TaskListInfo() {
+    
   return (
     
       <div className='w-full  h-max grid grid-cols-2 gap-5 place-items-center sm:grid-cols-4  border border-border bg-surface p-4  mt-4'>
@@ -19,7 +19,9 @@ function TaskListInfo() {
         </div>
       </div>
     
+    
   )
+  
 }
 
 export default TaskListInfo
