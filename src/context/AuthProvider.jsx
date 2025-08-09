@@ -324,7 +324,7 @@ export const AuthProvider = ({ children }) => {
   
 
 
-  console.log(Array.isArray(currentadmin));
+  
 
 
 
