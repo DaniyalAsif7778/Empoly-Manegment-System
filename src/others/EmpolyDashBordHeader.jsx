@@ -51,8 +51,7 @@ if (currentuser.loginStatus== true) {
 }
 
     
-navigate("/login")
-
+ 
 
 
 
@@ -75,7 +74,7 @@ navigate("/login")
   return (
 
 
-    <nav className=' w-full flex justify-between items-center   p-4 mt-4 border border-border  shadow-md rounded-md'>
+    <nav className=' w-full flex justify-between items-center bg-surface  p-4 mt-4 border border-border  shadow-md rounded-md'>
       <div>
         <h3 className='text-text-secondary text-Semibold'>Hellow</h3>
         <h1><span className='text-text-primary text-Semibold text-2xl'>  { currentadmin.loginStatus ?  currentadmin.Admin : currentuser.userName}       👏</span></h1>

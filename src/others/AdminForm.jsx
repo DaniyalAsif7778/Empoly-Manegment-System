@@ -26,6 +26,7 @@ function AdminForm() {
       assignedTo: assignedTo.trim(), // keep your existing key or rename in context
       category: category.trim(),
       description: description.trim(),
+      taskStatus:"null",
     });
 
     // Reset form
@@ -54,7 +55,7 @@ function AdminForm() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Create Title"
-              className="text-text-disabled border outline-none w-full p-1 border-border-secondary"
+              className="text-text-disabled bg-navbar border outline-none w-full p-1 border-border-secondary"
             />
           </div>
 
@@ -68,7 +69,7 @@ function AdminForm() {
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="text-text-disabled border outline-none w-full p-1 border-border-secondary"
+              className="text-text-disabled border bg-navbar outline-none w-full p-1 border-border-secondary"
             />
           </div>
 
@@ -83,7 +84,7 @@ function AdminForm() {
               value={assignedTo}
               onChange={(e) => setAssignedTo(e.target.value)}
               placeholder="Employee username"
-              className="text-text-disabled border outline-none w-full p-1 border-border-secondary"
+              className="text-text-disabled border bg-navbar outline-none w-full p-1 border-border-secondary"
             />
           </div>
 
@@ -98,7 +99,7 @@ function AdminForm() {
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               placeholder="Category"
-              className="text-text-disabled border outline-none w-full p-1 border-border-secondary"
+              className="text-text-disabled border bg-navbar outline-none w-full p-1 border-border-secondary"
             />
           </div>
         </div>
@@ -114,7 +115,7 @@ function AdminForm() {
                 name="description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-4/5 text-text-secondary outline-none rounded border border-border"
+                className="w-4/5 h-[439px] text-text-secondary bg-navbar outline-none rounded border border-border"
               ></textarea>
             </div>
             <div className="w-full flex justify-start p-4">

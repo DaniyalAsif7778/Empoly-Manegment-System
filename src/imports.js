@@ -11,4 +11,9 @@ import   Footer from "./componenets/Footer/Footer.jsx";
  import AdminForm from "./others/AdminForm.jsx";
  import success from './others/success.jsx'
  import EmployeesList from "./others/EmployeesList.jsx";
- export  {Login, Singup, Header,Footer,AdminDashbord,EmpolyDashBoard ,EmpolyDashBordHeader,Home,TaskListInfo,TasksList, AdminForm ,success,EmployeesList   };
+ import WorkingButtons from "./others/WorkingButtons.jsx";
+ import FailedButton from "./others/FailedButton.jsx";
+ import CompletedButton from "./others/CompletedButton.jsx";
+ import About from "./componenets/About/About.jsx";
+ import Settings from "./componenets/Settings/Settings.jsx";
+ export  {Settings, Login, Singup, Header,Footer,AdminDashbord,EmpolyDashBoard , About ,EmpolyDashBordHeader,Home,TaskListInfo,TasksList, AdminForm ,success,EmployeesList,FailedButton , CompletedButton , WorkingButtons , }

@@ -31,7 +31,7 @@ function Singup() {
       if  (
         
         data.App.find(
-          (item) => item.Admin.trim()  === name.trim().toLowerCase()
+          (item) => item.Admin  === name.trim().toLowerCase()
         )
         ) {
         setErrorName("Already Taken");
@@ -57,9 +57,7 @@ function Singup() {
           Email: email.trim(),
           password: password.trim(),
           loginStatus: true ,
-          Employees: [
-            
-          ],
+          Employees: [],
         });
   
         // reset form fields
@@ -98,7 +96,9 @@ function Singup() {
   
         password: password.trim(),
         loginStatus:true ,
-        tasks: [],
+        tasks: [ 
+          
+        ],
       });
   navigate("/employedashboard")
       // reset form fields
