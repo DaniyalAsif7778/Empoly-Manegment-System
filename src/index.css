@@ -36,7 +36,17 @@
 :root {
   background-color: var(--color-bg);
   color: var(--color-text-primary);
+ 
+},body{
+  --color-surface: #121212;
+  --color-text-primary: #E0E0E0;
+  --color-border: #333333;
+  --color-success: #00BF6B;
+  --color-error: #EF4444;
+  --color-primary: #009F8E;
 }
 
 .Tasks:webkit-scrollbar {
- display: none; /* Hide scrollbar for a cleaner look */}
+ display: none;
+ 
+ /* Hide scrollbar for a cleaner look */}

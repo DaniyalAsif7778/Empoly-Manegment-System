@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../context/AuthContex";
-
+   import toast from "react-hot-toast";
 function AdminForm() {
   const { addTask } = useAuthContext();
 
@@ -13,28 +13,32 @@ function AdminForm() {
   const taskHandler = (e) => {
     e.preventDefault();
 
-    // You might also validate here:
     if (!title.trim() || !date.trim() || !assignedTo.trim() || !category.trim()) {
-      alert("Please fill all required fields");
+      toast.error("Please fill all required fields");
       return;
-    }
-
+    }else{
+  
+   
+    // ✅ Call the addTask (actual logic in AuthProvider)
     addTask({
-       
       title: title.trim(),
       date: date.trim(),
-      assignedTo: assignedTo.trim(), // keep your existing key or rename in context
+      assignedTo: assignedTo.trim(),
       category: category.trim(),
       description: description.trim(),
-      taskStatus:"null",
+      taskStatus: "null",
     });
-
-    // Reset form
+  
+    // ✅ Dismiss and show success after a delay
+     
+  
+    // Reset form fields
     setTitle("");
     setDate("");
     setAssignedTo("");
     setCategory("");
     setDescription("");
+    }
   };
 
   return (

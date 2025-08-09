@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useAuthContext } from "../../../context/AuthContex";
 import { useNavigate } from "react-router";
 import { v4 as uuidv4 } from "uuid";
+import toast from "react-hot-toast";
+
 function Singup() {
   const { data, addAdmin, addUser } = useAuthContext();
   const navigate = useNavigate();
@@ -11,9 +13,7 @@ function Singup() {
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorName, setErrorName] = useState(" ");
-  const [errorEmail, setErrorEmail] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
+ 
   // const [showpassword,setShowPassword] =useState("password");
   const SingupHandler = (e) => {
     e.preventDefault();
@@ -27,89 +27,123 @@ function Singup() {
       alert("Please fill all fields correctly");
       return;
     }
-    if(role.trim() =="Admin"){
-      if  (
-        
-        data.App.find(
-          (item) => item.Admin  === name.trim().toLowerCase()
-        )
-        ) {
-        setErrorName("Already Taken");
-        } else if (
-       
-        data.App.find(
-          (item) => item.Email.trim().toLowerCase() === email.trim().toLowerCase()
-        )
-        ) {
-        setErrorEmail("Already Taken");
-        } else if (
-        
-        data.App.find(
-          (item) =>
-            item.password.trim().toLowerCase() === password.trim().toLowerCase()
-        )
-         ) {
-          setErrorPassword("Already Taken");
-         }else  {
+ 
+    
+    // Check for empty fields
+    if (
+      name.trim() === "" ||
+      email.trim() === "" ||
+      password.trim() === "" ||
+      role.trim() === ""
+    ) {
+      toast.error("Please fill all fields correctly");
+      return;
+    }
+    
+    if (role.trim() === "Admin") {
+      const nameTaken = data.App.find(
+        (item) => item.Admin.trim().toLowerCase() === name.trim().toLowerCase()
+      );
+      const emailTaken = data.App.find(
+        (item) => item.Email.trim().toLowerCase() === email.trim().toLowerCase()
+      );
+      const passwordTaken = data.App.find(
+        (item) => item.password.trim().toLowerCase() === password.trim().toLowerCase()
+      );
+    
+      if (nameTaken) {
+        toast.error("Admin name is already taken.");
+        return;
+      }
+    
+      if (emailTaken) {
+        toast.error("Email is already taken.");
+        return;
+      }
+    
+      if (passwordTaken) {
+        toast.error("Password is already taken.");
+        return;
+      }
+    
+      const toastId = toast.loading("Creating admin...");
+    
+      setTimeout(() => {
         addAdmin({
           id: uuidv4(),
           Admin: name.trim(),
           Email: email.trim(),
           password: password.trim(),
-          loginStatus: true ,
+          loginStatus: true,
           Employees: [],
         });
-  
-        // reset form fields
+    
+        toast.dismiss(toastId);
+        toast.success("Admin created successfully!");
+    
         setName("");
         setEmail("");
         setPassword("");
         setRole("");
-  
-        // navigate
         navigate("/admindashboard");
-         }  
+      }, 2000);
     }
-
-   if (role.trim() == "Employee") {
-    if (
-     
-      data.App.some((admins) => {
-        return admins.Employees.some((user) => user.userName.trim().toLowerCase() === name.trim().toLowerCase());
-      })
-    ) {
-      setErrorName("Username already taken");
-    } else if (
     
-      data.App.some((admins) => {
-        return admins.Employees.some((user) => user.password.trim().toLowerCase() === password.trim().toLowerCase());
-      })
-    ) {
-      setErrorPassword("Password already taken");
-    } else {
-      // add user
-      addUser({ 
-        id: uuidv4(),
-        userName:name.trim(),
-  
-        Email: email.trim(),
-  
-        password: password.trim(),
-        loginStatus:true ,
-        tasks: [ 
-          
-        ],
+    if (role.trim() === "Employee") {
+      let nameTaken = false;
+      let passwordTaken = false;
+    
+      data.App.forEach((admin) => {
+        if (
+          admin.Employees.some(
+            (emp) => emp.userName.trim().toLowerCase() === name.trim().toLowerCase()
+          )
+        ) {
+          nameTaken = true;
+        }
+    
+        if (
+          admin.Employees.some(
+            (emp) => emp.password.trim().toLowerCase() === password.trim().toLowerCase()
+          )
+        ) {
+          passwordTaken = true;
+        }
       });
-  navigate("/employedashboard")
-      // reset form fields
-      setName("");
-      setEmail("");
-      setPassword("");
-      setRole("");
-      setErrorName(" ");
-      setErrorPassword("");
+    
+      if (nameTaken) {
+        toast.error("Employee name is already taken.");
+        return;
+      }
+    
+      if (passwordTaken) {
+        toast.error("Password is already taken.");
+        return;
+      }
+    
+      const toastId = toast.loading("Creating employee...");
+    
+      setTimeout(() => {
+        addUser({
+          id: uuidv4(),
+          userName: name.trim(),
+          Email: email.trim(),
+          password: password.trim(),
+          loginStatus: true,
+          tasks: [],
+        });
+    
+        toast.dismiss(toastId);
+        toast.success("Employee created successfully!");
+    
+        setName("");
+        setEmail("");
+        setPassword("");
+        setRole("");
+        navigate("/employedashboard");
+      }, 2000);
     }
-   }
+    
     
   
     
@@ -144,7 +178,7 @@ function Singup() {
                   className="w-full   border-2 border-border rounded-md p-2 text-text-secondary"
                 />
                 <div className="flex justify-end pr-3 text-error w-full">
-                  <h1>{errorName} </h1>
+                  <h1>{ } </h1>
                 </div>
               </div>
 
@@ -187,7 +221,7 @@ function Singup() {
                   className="flex justify-end pr-3  text-errorw-full"
                   onClick={() => {}}
                 >
-                  <h1>{errorPassword} </h1>
+                  <h1>{ } </h1>
                 </div>
               </div>
               <div className="flex flex-col  items-start justify-center mt-6 gap-0.5 mb-2.5 ">
@@ -208,7 +242,7 @@ function Singup() {
                   className="flex justify-end pr-3  text-error w-full"
                   onClick={() => {}}
                 >
-                  <h1>{errorEmail} </h1>
+                  <h1>{ } </h1>
                 </div>
               </div>
             </div>
