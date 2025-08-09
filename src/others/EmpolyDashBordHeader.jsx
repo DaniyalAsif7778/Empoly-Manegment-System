@@ -48,7 +48,7 @@ export default function EmpolyDashBordHeader() {
       toast.dismiss(toastId);
       toast.success("Logged out successfully!");
       navigate("/login");
-    }, 2000); // 2 seconds delay for realism
+    }, 700); // 2 seconds delay for realism
   };
 
   return (

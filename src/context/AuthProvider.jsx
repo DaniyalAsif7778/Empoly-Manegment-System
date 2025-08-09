@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "./AuthContex";
-
+ 
 export const AuthProvider = ({ children }) => {
   const [currentadmin, setCurrentAdmin] = useState(() => {
     const currentAdmin = localStorage.getItem("currentAdmin");
@@ -26,7 +26,11 @@ export const AuthProvider = ({ children }) => {
             password: "safasfaf",
             loginStatus: false,
             Employees: [
+              {
 
+                tasks:[]
+              }
+            
             ]
           }
         ]
@@ -145,7 +149,7 @@ export const AuthProvider = ({ children }) => {
       }
       return admin;
     })
-    
+   
   };
 
   const addUser = (userData) => {
@@ -164,7 +168,27 @@ export const AuthProvider = ({ children }) => {
     }));
     setCurrentUser(userData)
   };
-  // const deleteUser = () => { };
+  const deleteUser = () => {
+        setData((prevData) => ({
+      App: prevData.App.map((admins) => {
+         return{
+
+          ...admins,
+          Employees: admins.Employees.filter((employee) => !(employee.id === currentuser.id && employee.userName === currentuser.userName))
+         }
+      
+      })
+        }))
+        
+        setCurrentUser((employee) => {
+          let  employeeCheck = data.App.map((admins) => {
+            return admins.Employees.find((employees) => employee.id == employees.id)
+          })
+          if (employeeCheck) {
+            return    {loginStatus:false,}          
+          }
+        })
+   };
   const updateUser = (name, password) => {
     if (name) {
 
@@ -295,7 +319,7 @@ export const AuthProvider = ({ children }) => {
   
       toast.dismiss(toastId);
       toast.success("Task created successfully!");
-    }, 2000);
+    }, 700);
   };
   
 
@@ -305,8 +329,38 @@ export const AuthProvider = ({ children }) => {
 
 
 
-  const deleteTask = () => { };
- 
+ // inside AuthProvider (example)
+const deleteTask = (employeeId, taskId) => {
+  // update stored app data (safe fallback to empty array)
+  setData(prev => ({
+    App: (prev?.App ?? []).map(admin =>
+      admin.loginStatus
+        ? {
+            ...admin,
+            Employees: (admin.Employees ?? []).map(emp =>
+              emp.id === employeeId
+                ? { ...emp, tasks: (emp.tasks ?? []).filter(t => t.id !== taskId) }
+                : emp
+            ),
+          }
+        : admin
+    ),
+  }));
+
+  // update currentadmin in context
+   setCurrentAdmin(prev => {
+    if (!prev) return prev;
+    return {
+      ...prev,
+      Employees: (prev.Employees ?? []).map(emp =>
+        emp.id === employeeId
+          ? { ...emp, tasks: (emp.tasks ?? []).filter(t => t.id !== taskId) }
+          : emp
+      ),
+    };
+  });
+};
+
   // status updater;
   const statusUpdater = (status, index) => {
 
@@ -340,7 +394,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ data, setData, addAdmin, addUser, currentadmin, setCurrentAdmin, currentuser, setCurrentUser, addTask, statusUpdater, updateAdmin, deleteAdmin,updateUser }}>
+    <AuthContext.Provider value={{ data, setData, addAdmin, addUser , deleteUser, currentadmin, setCurrentAdmin, currentuser, setCurrentUser, addTask, statusUpdater, updateAdmin, deleteAdmin,updateUser,deleteTask }}>
       {children}
     </AuthContext.Provider>
   );

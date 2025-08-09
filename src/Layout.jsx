@@ -8,7 +8,7 @@ function Layout() {
       <Header />
       <Outlet />
       <Footer />
-      import { Toaster } from "react-hot-toast";
+   
 
 <Toaster
   position="top-right"

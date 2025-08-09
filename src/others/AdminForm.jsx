@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../context/AuthContex";
    import toast from "react-hot-toast";
+   import { v4 as uuidv4 } from "uuid";
 function AdminForm() {
   const { addTask } = useAuthContext();
 
@@ -20,7 +21,9 @@ function AdminForm() {
   
    
     // ✅ Call the addTask (actual logic in AuthProvider)
+ 
     addTask({
+      id: uuidv4(),
       title: title.trim(),
       date: date.trim(),
       assignedTo: assignedTo.trim(),

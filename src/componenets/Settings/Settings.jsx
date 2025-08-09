@@ -19,17 +19,7 @@ const Settings = () => {
           <ChangePassword />
 
           {/* Preferences Section */}
-          <section className="bg-[var(--color-surface)] p-6 md:p-8 rounded-2xl border border-[var(--color-border)] mb-8 shadow-md">
-            <h3 className="text-xl font-semibold mb-6">Preferences</h3>
-            <div className="flex items-center justify-between">
-              <span className="text-[var(--color-text-secondary)]">Enable Dark Mode</span>
-              <div className="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
-                <div className="toggle-bg bg-[var(--color-border-secondary)] block w-12 h-6 rounded-full"></div>
-                <div className="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform"></div>
-              </div>
-            </div>
-          </section>
-
+           
           {/* Danger Zone */}
           <Delete />
         </div>

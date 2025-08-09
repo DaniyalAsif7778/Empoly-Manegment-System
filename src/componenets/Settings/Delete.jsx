@@ -1,13 +1,21 @@
 import React from 'react'
 import { useAuthContext } from '../../context/AuthContex'
+import {  useNavigate } from 'react-router';
 
 function Delete() {
-  const {  currentadmin , deleteAdmin} = useAuthContext();
-    
+  const {  currentadmin , currentuser, deleteUser, deleteAdmin} = useAuthContext();
+      const navigate = useNavigate()
      const deleteHandler = ()=>{
           if (currentadmin.loginStatus === true) {
               deleteAdmin();
+              navigate("/singup");
           }
+          if (currentuser.loginStatus === true) {
+              deleteUser();
+              navigate("/singup");
+            
+          }
+
      }
 
   return (
