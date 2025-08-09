@@ -1,8 +1,7 @@
-<<<<<<< HEAD
  
-function TaskListInfo() {
+ 
     
-=======
+ 
 import React from 'react'
 import { useAuthContext } from '../context/AuthContex'
 function TaskListInfo() {
@@ -14,7 +13,7 @@ function TaskListInfo() {
 
    console.log(newTask,Completed,Failed,ActiveTask);
    
->>>>>>> 52f2fb345d299bc238b152a4a86d9a4180c98019
+ 
   return (
     
       <div className='w-full  h-max grid grid-cols-2 gap-5 place-items-center sm:grid-cols-4  border border-border bg-surface p-4  mt-4'>
