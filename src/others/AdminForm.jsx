@@ -3,7 +3,7 @@ import { useAuthContext } from "../context/AuthContex";
    import toast from "react-hot-toast";
    import { v4 as uuidv4 } from "uuid";
 function AdminForm() {
-  const { addTask } = useAuthContext();
+  const { addTask,currentadmin } = useAuthContext();
 
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
@@ -81,20 +81,25 @@ function AdminForm() {
           </div>
 
           <div className="w-5/5 sm:w-4/5 flex flex-col items-start justify-center gap-2 p-3.5">
-            <label htmlFor="assign-to" className="text-text-primary">
-              Assign To:
-            </label>
-            <input
-              id="assign-to"
-              name="assign-to"
-              type="text"
-              value={assignedTo}
-              onChange={(e) => setAssignedTo(e.target.value)}
-              placeholder="Employee username"
-              className="text-text-disabled border bg-navbar outline-none w-full p-1 border-border-secondary"
-            />
-          </div>
-
+  <label htmlFor="assign-to" className="text-text-primary">
+    Assign To:
+  </label>
+  <input
+    id="assign-to"
+    name="assign-to"
+    type="text"
+    value={assignedTo}
+    onChange={(e) => setAssignedTo(e.target.value)}
+    placeholder="Employee username"
+    list="employee-list"
+    className="text-text-disabled border bg-navbar outline-none w-full p-1 border-border-secondary"
+  />
+  <datalist id="employee-list">
+    {currentadmin.Employees.map((emp) => (
+      <option key={emp.id} value={emp.userName} />
+    ))}
+  </datalist>
+</div>
           <div className="w-5/5 sm:w-4/5 flex flex-col items-start justify-center gap-2 p-3.5">
             <label htmlFor="category" className="text-text-primary">
               Category:
