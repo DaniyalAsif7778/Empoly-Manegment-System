@@ -18,22 +18,7 @@ export const AuthProvider = ({ children }) => {
     return storedData
       ? JSON.parse(storedData)
       : {
-        App: [
-          {
-            id: "",
-            Admin: " Daniyal Asif",
-            Email: "Daniyal86@gmail.com",
-            password: "safasfaf",
-            loginStatus: false,
-            Employees: [
-              {
-
-                tasks:[]
-              }
-            
-            ]
-          }
-        ]
+        App:[]
       };
   });
   useEffect(() => {
