@@ -16,19 +16,19 @@ function TasksList() {
               if (e.target.classList.contains("working-btn")) {
                 statusUpdater("Working", index);
                 toast.success("Task marked as Working 🛠️");
-                window.dispatchEvent(new Event("task-updated")); // 🔥
+               
               }
 
               if (e.target.classList.contains("failed-btn")) {
                 statusUpdater("Failed", index);
                 toast.success("Task marked as Failed ❌");
-                window.dispatchEvent(new Event("task-updated")); // 🔥
+                
               }
 
               if (e.target.classList.contains("complete-btn")) {
                 statusUpdater("Completed", index);
                 toast.success("Task marked as Completed ✅");
-                window.dispatchEvent(new Event("task-updated")); // 🔥
+                
               }
             }}
             className="Task bg-navbar rounded-md relative"

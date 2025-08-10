@@ -65,7 +65,7 @@ function EmployeesList() {
                 <div className="text-center">
                   <button
                     onClick={() => toggleEmployeeTasks(emp.id)}
-                    className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-xs"
+                    className="px-3 py-1 bg-primary hover:bg-primary-hover text-text-disabled rounded-md text-xs"
                     type="button"
                   >
                     {isOpen ? "Hide Tasks" : "Show Tasks"}
@@ -79,8 +79,8 @@ function EmployeesList() {
                     emp.tasks.map((task) => {
                       const isDescOpen = expandedDescriptions[task.id];
                       return (
-                        <div key={task.id} className="border rounded-md p-3 shadow-sm">
-                          <div className="flex justify-between text-sm text-gray-500">
+                        <div key={task.id} className="border bg-navbar rounded-md p-3 shadow-sm">
+                          <div className="flex justify-between text-sm text-text-secondary">
                             <span>
                               {task.taskStatus === "null" ? "New Task" : task.taskStatus}
                             </span>
@@ -89,7 +89,7 @@ function EmployeesList() {
                           <h3 className="font-semibold mt-1 text-base md:text-lg break-words">
                             {task.title}
                           </h3>
-                          <p className="mt-1 text-gray-700 text-sm md:text-base break-words">
+                          <p className="mt-1 text-text-secondary text-sm md:text-base break-words">
                             {isDescOpen
                               ? task.description
                               : `${task.description.slice(0, 100)}...`}
@@ -97,7 +97,7 @@ function EmployeesList() {
                           {task.description.length > 100 && (
                             <button
                               onClick={() => toggleDescription(task.id)}
-                              className="text-blue-500 text-xs mt-1"
+                              className=" text-text-primary text-xs mt-1"
                               type="button"
                             >
                               {isDescOpen ? "Show Less" : "More"}

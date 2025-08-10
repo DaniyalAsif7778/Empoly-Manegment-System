@@ -9,27 +9,26 @@ function Login() {
   const { data, setData, setCurrentAdmin, setCurrentUser } = useAuthContext();
   const navigate = useNavigate();
 
-  const safeTrim = (val) => (typeof val === 'string' ? val.trim() : '');
-
-  const LoginHandler = (e) => {
+   
+  const LoginHandler = async (e) => {
     e.preventDefault();
-    const emailTrimmed = safeTrim(email).toLowerCase();
-    const pwdTrimmed = safeTrim(password);
-
+    const emailTrimmed = email.toLowerCase();
+    const pwdTrimmed = password;
+  
     if (!emailTrimmed || !pwdTrimmed) {
       toast.error('Please enter both email and password');
       return;
     }
-
+  
     const allAdmins = Array.isArray(data?.App) ? data.App : [];
-
+  
     // Admin login check
     const admin = allAdmins.find(
       (a) =>
-        safeTrim(a.Email).toLowerCase() === emailTrimmed &&
-        safeTrim(a.password) === pwdTrimmed
+        a?.Email?.toLowerCase() === emailTrimmed &&
+        a?.password === pwdTrimmed
     );
-
+  
     if (admin) {
       if (admin.loginStatus) {
         toast.error('You are already logged in as Admin');
@@ -47,18 +46,18 @@ function Login() {
         toast.success('Admin logged in successfully!');
         setEmail('');
         setPassword('');
-        navigate('/admindashboard');
+        navigate('/admindashboard', { replace: true });
       }, 700);
       return;
     }
-
+  
     // Employee login check
     let found = false;
     allAdmins.forEach((a) => {
-      a.Employees?.forEach((u) => {
+      a?.Employees?.forEach((u) => {
         if (
-          safeTrim(u.Email).toLowerCase() === emailTrimmed &&
-          safeTrim(u.password) === pwdTrimmed
+          u?.Email?.toLowerCase() === emailTrimmed &&
+          u?.password === pwdTrimmed
         ) {
           found = true;
           if (u.loginStatus) {
@@ -79,17 +78,18 @@ function Login() {
               toast.success('Employee logged in successfully!');
               setEmail('');
               setPassword('');
-              navigate('/employedashboard');
+              navigate('/employedashboard', { replace: true });
             }, 700);
           }
         }
       });
     });
-
+  
     if (!admin && !found) {
       toast.error('Invalid email or password');
     }
   };
+  
 
   return (
     <div className="signup-container w-full h-screen flex items-center justify-center p-4">
