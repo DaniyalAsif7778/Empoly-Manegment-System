@@ -1,7 +1,18 @@
-import React from "react";
-import Settings from "../Settings/Settings";
-
-const Home = () => {
+ 
+ import Settings from "../Settings/Settings";
+ import { useEffect } from "react";
+ import { useDispatch,useSelector } from "react-redux";
+ import {addAdmin} from "../../features/user/UserSlice"
+ const Home = () => {
+  const data = useSelector((state)=>  state.user)
+  console.log(data);
+  
+  const dispatch = useDispatch();
+ useEffect(()=>{
+   dispatch(addAdmin())
+ }, [ dispatch ])
+ 
+  
   return (
     <main className="bg-[var(--color-bg)] text-[var(--color-text-primary)] font-sans">
       {/* Hero Section */}

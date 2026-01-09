@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
- 
+ import { store } from "./store/store.js";
+ import { Provider } from "react-redux";
 import "./index.css";
 import "./App.css";
 import Layout from "./Layout";
@@ -18,7 +19,7 @@ import {AuthProvider}   from "./context/AuthProvider.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route path="" element={<Home />} />
+      <Route path="" element={<Home/>} />
       <Route path= "/about"  element={<About/>} />
 
       <Route path= "/admindashboard"  element={<AdminDashbord/>} />
@@ -34,7 +35,9 @@ const router = createBrowserRouter(
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
+      <Provider  store={store}>
       <RouterProvider router={router} />
+      </Provider>
     </AuthProvider>
   </StrictMode>
 );

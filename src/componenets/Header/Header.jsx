@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import { NavLink } from 'react-router';
 import { useAuthContext } from '../../context/AuthContex';
-
+ 
 function Header() {
   const { currentadmin, currentuser } = useAuthContext();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const isLoggedIn = currentadmin.loginStatus || currentuser.loginStatus;
-
+ 
   return (
     <header className="w-full bg-surface text-text-primary border-b border-border px-6 py-4">
       <div className="flex justify-between items-center">

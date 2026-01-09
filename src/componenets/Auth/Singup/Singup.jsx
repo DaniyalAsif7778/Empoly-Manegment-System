@@ -1,58 +1,43 @@
 import React, { useState } from "react";
-import { useAuthContext } from "../../../context/AuthContex";
+ 
 import { useNavigate } from "react-router";
 import { v4 as uuidv4 } from "uuid";
 import toast from "react-hot-toast";
+import { useDispatch,useSelector } from "react-redux";
+import { addAdmin } from "../../../features/user/UserSlice";
 
 function Signup() {
-  const { data, addAdmin, addUser } = useAuthContext();
+   
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+ const dispatch = useDispatch();
+ const data = useSelector((state) => state.user.Admins)
   const safeTrim = (val) => (typeof val === "string" ? val.trim() : "");
 
   const SignupHandler = (e) => {
     e.preventDefault();
 
-    if (
-      safeTrim(name) === "" ||
-      safeTrim(email) === "" ||
-      safeTrim(password) === "" ||
-      safeTrim(role) === ""
-    ) {
-      toast.error("Please fill all fields correctly");
-      return;
-    }
-
-    if (safeTrim(role).toLowerCase() === "admin") {
-      const nameTaken = data.App.find(
-        (item) => safeTrim(item.Admin).toLowerCase() === safeTrim(name).toLowerCase()
-      );
-      const emailTaken = data.App.find(
-        (item) => safeTrim(item.Email).toLowerCase() === safeTrim(email).toLowerCase()
-      );
-      const passwordTaken = data.App.find(
-        (item) =>
-          safeTrim(item.password).toLowerCase() === safeTrim(password).toLowerCase()
-      );
-
-      if (nameTaken) return toast.error("Admin name is already taken.");
-      if (emailTaken) return toast.error("Email is already taken.");
-      if (passwordTaken) return toast.error("Password is already taken.");
+  
+  
+      
+      // if (nameTaken) return toast.error("Admin name is already taken.");
+      // if (emailTaken) return toast.error("Email is already taken.");
+      // if (passwordTaken) return toast.error("Password is already taken.");
 
       const toastId = toast.loading("Creating admin...");
       setTimeout(() => {
-        addAdmin({
+        dispatch(addAdmin({
           id: uuidv4(),
-          Admin: safeTrim(name),
+          name: safeTrim(name),
           Email: safeTrim(email),
           password: safeTrim(password),
           loginStatus: true,
-          Employees: [],
-        });
+          
+        })) 
+         
 
         toast.dismiss(toastId);
         toast.success("Admin created successfully!");
@@ -61,58 +46,60 @@ function Signup() {
         setEmail("");
         setPassword("");
         setRole("");
-        navigate("/admindashboard");
+          
+    console.log(data,"data");
       }, 700);
-    }
+   
+    
 
-    if (safeTrim(role).toLowerCase() === "employee") {
-      let nameTaken = false;
-      let passwordTaken = false;
+    // if (safeTrim(role).toLowerCase() === "employee") {
+    //   let nameTaken = false;
+    //   let passwordTaken = false;
 
-      data.App.forEach((admin) => {
-        if (
-          admin.Employees.some(
-            (emp) =>
-              safeTrim(emp.userName).toLowerCase() === safeTrim(name).toLowerCase()
-          )
-        ) {
-          nameTaken = true;
-        }
+    //   data.App.forEach((admin) => {
+    //     if (
+    //       admin.Employees.some(
+    //         (emp) =>
+    //           safeTrim(emp.userName).toLowerCase() === safeTrim(name).toLowerCase()
+    //       )
+    //     ) {
+    //       nameTaken = true;
+    //     }
 
-        if (
-          admin.Employees.some(
-            (emp) =>
-              safeTrim(emp.password).toLowerCase() === safeTrim(password).toLowerCase()
-          )
-        ) {
-          passwordTaken = true;
-        }
-      });
+    //     if (
+    //       admin.Employees.some(
+    //         (emp) =>
+    //           safeTrim(emp.password).toLowerCase() === safeTrim(password).toLowerCase()
+    //       )
+    //     ) {
+    //       passwordTaken = true;
+    //     }
+    //   });
 
-      if (nameTaken) return toast.error("Employee name is already taken.");
-      if (passwordTaken) return toast.error("Password is already taken.");
+    //   if (nameTaken) return toast.error("Employee name is already taken.");
+    //   if (passwordTaken) return toast.error("Password is already taken.");
 
-      const toastId = toast.loading("Creating employee...");
-      setTimeout(() => {
-        addUser({
-          id: uuidv4(),
-          userName: safeTrim(name),
-          Email: safeTrim(email),
-          password: safeTrim(password),
-          loginStatus: true,
-          tasks: [],
-        });
+    //   const toastId = toast.loading("Creating employee...");
+    //   setTimeout(() => {
+    //     addUser({
+    //       id: uuidv4(),
+    //       userName: safeTrim(name),
+    //       Email: safeTrim(email),
+    //       password: safeTrim(password),
+    //       loginStatus: true,
+    //       tasks: [],
+    //     });
 
-        toast.dismiss(toastId);
-        toast.success("Employee created successfully!");
+    //     toast.dismiss(toastId);
+    //     toast.success("Employee created successfully!");
 
-        setName("");
-        setEmail("");
-        setPassword("");
-        setRole("");
-        navigate("/employedashboard");
-      }, 700);
-    }
+    //     setName("");
+    //     setEmail("");
+    //     setPassword("");
+    //     setRole("");
+    //     navigate("/employedashboard");
+    //   }, 700);
+    // }
   };
 
   return (
