@@ -1,7 +1,7 @@
 # React + Vite
 # Employee Management System (Frontend) - Step 1
 
-![Employee Management Flow](./src/assets/ems-flow.png)
+<img src="./src/assets/ems-flow.png" alt="Employee Management Flow" width="600">
 
 
 This project focuses on building the **frontend** for an Employee Management System with **low-level design**, **secure authentication**, **Redux Toolkit**, **better UI/UX**, and **basic SEO & performance optimizations**.
