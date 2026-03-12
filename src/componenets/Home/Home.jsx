@@ -12,7 +12,11 @@
    dispatch(addAdmin())
  }, [ dispatch ])
  
-  
+ if (globalThis.crypto?.subtle) {
+  console.log("Crypto API available");
+} else {
+  console.error("Crypto API missing");
+}
   return (
     <main className="bg-[var(--color-bg)] text-[var(--color-text-primary)] font-sans">
       {/* Hero Section */}

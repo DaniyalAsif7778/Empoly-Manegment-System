@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const initialState = {
   Admins: [{
     name: "AliRaza",
     id: 123,
     password: 7861,
+    status:false,
     Email: "AliRaza78690",
     EmployeesID: 1234,
   }],
   Employees: [{ name: "xyz" }],
   Tasks: [],
+  adminLoginStatus:"",
 };
 
 export const userSlice = createSlice({
@@ -18,7 +19,21 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addAdmin: (state, action) => {
-      state.Admins.push(action.payload)
+      if (action.payload) {
+      const checkAdmin = state.Admins.some((user) => user.Email === action.payload.Email && user.password == action.payload.password)
+      if (!checkAdmin) {
+        
+   
+        console.log("Stored admin ID:", localStorage.getItem("adminId"));
+        state.Admins.push(action.payload)
+          state.adminLoginStatus = true; 
+      }else{
+        state.adminLoginStatus =false;
+      }
+       
+
+      }
+     
 
 
 
@@ -26,7 +41,9 @@ export const userSlice = createSlice({
     updateAdmin: () => { },
     deleteAdmin: () => { },
 
-    addEmployee: () => { },
+    addEmployee: (state, action) => {
+      state.Employees.push(action.payload)
+    },
     updateEmployee: () => { },
     deleteEmployee: () => { },
 
@@ -36,6 +53,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addAdmin } = userSlice.actions;
+export const { addAdmin, addEmployee } = userSlice.actions;
 
 export default userSlice.reducer;

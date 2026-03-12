@@ -13,7 +13,7 @@ function Header() {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <span className="text-xl font-bold">EmpoManager</span>
+          <span className="text-xl font-bold">EmploManager</span>
         </div>
 
         {/* Hamburger Button (Mobile) */}

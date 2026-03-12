@@ -1,153 +1,223 @@
-import React, { useState } from "react";
- 
-import { useNavigate } from "react-router";
-import { v4 as uuidv4 } from "uuid";
-import toast from "react-hot-toast";
-import { useDispatch,useSelector } from "react-redux";
-import { addAdmin } from "../../../features/user/UserSlice";
+import React, { useEffect, useState } from "react";
+import useSingUp from "../../../hooks/useSingUp";
 
 function Signup() {
-   
-  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- const dispatch = useDispatch();
- const data = useSelector((state) => state.user.Admins)
-  const safeTrim = (val) => (typeof val === "string" ? val.trim() : "");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [debounceEmail, setDebounceEmail] = useState("")
+  const [debouncePassword, setDebouncePassword] = useState("")
+  useEffect(() => {
+    const handler = setTimeout(() => {
 
-  const SignupHandler = (e) => {
-    e.preventDefault();
 
+      setDebounceEmail(email)
+      setDebouncePassword(password)
+
+
+
+
+    }, 1000)
+    return ()=> clearTimeout(handler)
+  }, [email, password
+  ])
+  console.log(debounceEmail,debouncePassword);
   
-  
-      
-      // if (nameTaken) return toast.error("Admin name is already taken.");
-      // if (emailTaken) return toast.error("Email is already taken.");
-      // if (passwordTaken) return toast.error("Password is already taken.");
-
-      const toastId = toast.loading("Creating admin...");
-      setTimeout(() => {
-        dispatch(addAdmin({
-          id: uuidv4(),
-          name: safeTrim(name),
-          Email: safeTrim(email),
-          password: safeTrim(password),
-          loginStatus: true,
-          
-        })) 
-         
-
-        toast.dismiss(toastId);
-        toast.success("Admin created successfully!");
-
-        setName("");
-        setEmail("");
-        setPassword("");
-        setRole("");
-          
-    console.log(data,"data");
-      }, 700);
+  const { SignupHandler } = useSingUp(name, debounceEmail, debouncePassword, role, setEmailError, setPasswordError);
    
-    
+  
+  // // const SignupHandler = () => {
 
-    // if (safeTrim(role).toLowerCase() === "employee") {
-    //   let nameTaken = false;
-    //   let passwordTaken = false;
 
-    //   data.App.forEach((admin) => {
-    //     if (
-    //       admin.Employees.some(
-    //         (emp) =>
-    //           safeTrim(emp.userName).toLowerCase() === safeTrim(name).toLowerCase()
-    //       )
-    //     ) {
-    //       nameTaken = true;
-    //     }
+  // //   const loginDetails = {
+  // //     id: uuidv4(),
+  // //     name: safeTrim(name),
+  // //     Email: safeTrim(email),
+  // //     password: safeTrim(password),
+  // //   }
 
-    //     if (
-    //       admin.Employees.some(
-    //         (emp) =>
-    //           safeTrim(emp.password).toLowerCase() === safeTrim(password).toLowerCase()
-    //       )
-    //     ) {
-    //       passwordTaken = true;
-    //     }
-    //   });
+  // //   Object.keys(loginDetails).forEach((key) => {
+  // //     if (loginDetails[key] == "") {
+  // //       toast.error(` Enter ${key}. `);
 
-    //   if (nameTaken) return toast.error("Employee name is already taken.");
-    //   if (passwordTaken) return toast.error("Password is already taken.");
+  // //     }
+  // //   })
+  // //   if (safeTrim(name) !== "" && safeTrim(email) !== "" && safeTrim(password) !== "" && safeTrim(role) == "Admin") {
+  // //     if (emailValid, passwordValid) {
 
-    //   const toastId = toast.loading("Creating employee...");
-    //   setTimeout(() => {
-    //     addUser({
-    //       id: uuidv4(),
-    //       userName: safeTrim(name),
-    //       Email: safeTrim(email),
-    //       password: safeTrim(password),
-    //       loginStatus: true,
-    //       tasks: [],
-    //     });
+  // //       const toastId = toast.loading("Creating admin...");
+  // //       setTimeout(() => {
+  // //         async function name() {
+  // //           const cryptoService = new CryptoService("mySecretKey123456789");
 
-    //     toast.dismiss(toastId);
-    //     toast.success("Employee created successfully!");
+  // //           const result = cryptoService.encrypt("Admin123");
 
-    //     setName("");
-    //     setEmail("");
-    //     setPassword("");
-    //     setRole("");
-    //     navigate("/employedashboard");
-    //   }, 700);
-    // }
-  };
+  // //           localStorage.setItem("adminId", result);
+  // //           console.log(result);
+  // //         }
+  // //         name()
+  // //         dispatch(addAdmin(loginDetails))
 
+
+  // //         toast.dismiss(toastId);
+  // //         toast.success("Admin created successfully!");
+
+
+  // //         setName("");
+  // //         setEmail("");
+  // //         setPassword("");
+  // //         setRole("");
+
+
+  // //       }, 700);
+
+
+  // //     }
+  // //   }
+
+
+
+  //   console.log(data);
+  //   // if (safeTrim(role).toLowerCase() === "employee") {
+  //   //   let nameTaken = false;
+  //   //   let passwordTaken = false;
+
+  //   //   data.App.forEach((admin) => {
+  //   //     if (
+  //   //       admin.Employees.some(
+  //   //         (emp) =>
+  //   //           safeTrim(emp.userName).toLowerCase() === safeTrim(name).toLowerCase()
+  //   //       )
+  //   //     ) {
+  //   //       nameTaken = true;
+  //   //     }
+
+  //   //     if (
+  //   //       admin.Employees.some(
+  //   //         (emp) =>
+  //   //           safeTrim(emp.password).toLowerCase() === safeTrim(password).toLowerCase()
+  //   //       )
+  //   //     ) {
+  //   //       passwordTaken = true;
+  //   //     }
+  //   //   });
+
+  //   //   if (nameTaken) return toast.error("Employee name is already taken.");
+  //   //   if (passwordTaken) return toast.error("Password is already taken.");
+
+  //   //   const toastId = toast.loading("Creating employee...");
+  //   //   setTimeout(() => {
+  //   //     addUser({
+  //   //       id: uuidv4(),
+  //   //       userName: safeTrim(name),
+  //   //       Email: safeTrim(email),
+  //   //       password: safeTrim(password),
+  //   //       loginStatus: true,
+  //   //       tasks: [],
+  //   //     });
+
+  //   //     toast.dismiss(toastId);
+  //   //     toast.success("Employee created successfully!");
+
+  //   //     setName("");
+  //   //     setEmail("");
+  //   //     setPassword("");
+  //   //     setRole("");
+  //   //     navigate("/employedashboard");
+  //   //   }, 700);
+  //   // }
+  // };
+  // console.log(data.Admins, "data");
   return (
     <div className="signup-container w-full h-screen flex items-center justify-center p-4">
       <div className="h-max w-full max-w-3xl bg-navbar p-4 rounded-lg border-2 border-border">
-        <form className="w-full h-full" onSubmit={SignupHandler}>
+        <form className="w-full h-full" onSubmit={(e) => {
+          e.preventDefault();
+
+          SignupHandler()
+
+
+        }}>
           <fieldset className="h-full border-2 border-border border-solid rounded-md p-2">
             <legend className="p-2 text-text-primary text-2xl">Sign Up</legend>
-            <div className="p-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="flex flex-col items-start justify-center gap-0.5 mb-2.5">
-                <label htmlFor="name" className="text-text-primary">Name :</label>
-                <input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  type="text"
-                  placeholder="Name"
-                  className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
-                />
+            <div className="p-2  ">
+              <div className="flex flex-col">
+                <div className="flex flex-col items-start justify-center gap-0.5 mb-2.5">
+                  <label htmlFor="name" className="text-text-primary">Name :</label>
+                  <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    type="text"
+                    placeholder="Name"
+                    className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
+                  />
+                </div>
+
+                <div className="flex flex-col items-start justify-center gap-0.5 mt-6 mb-2.5">
+                  <label htmlFor="password" className="text-text-primary">Password :</label>
+                  <input
+                    value={password}
+                    onChange={(e) => {
+
+                      setPassword(e.target.value)
+
+
+                    }}
+                    type="password"
+                    placeholder="Password"
+                    className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
+                  />
+                  <p>{passwordError}</p>
+                </div>
+                <div className="flex flex-col items-start justify-center gap-0.5 mt-6 mb-2.5">
+                  <label htmlFor="email" className="text-text-primary">Email :</label>
+                  <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="email"
+                    placeholder="Email"
+                    className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
+                  />
+                  <p>{emailError}</p>
+                </div>
               </div>
-              <div className="flex flex-col items-start justify-center gap-0.5 mb-2.5">
+              <div className="flex flex-col  items-start justify-start gap-2 mb-2.5">
                 <label htmlFor="role" className="text-text-primary">Role :</label>
-                <input
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  type="text"
-                  placeholder="Role"
-                  className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
-                />
-              </div>
-              <div className="flex flex-col items-start justify-center gap-0.5 mt-6 mb-2.5">
-                <label htmlFor="password" className="text-text-primary">Password :</label>
-                <input
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  type="password"
-                  placeholder="Password"
-                  className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
-                />
-              </div>
-              <div className="flex flex-col items-start justify-center gap-0.5 mt-6 mb-2.5">
-                <label htmlFor="email" className="text-text-primary">Email :</label>
-                <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
-                  placeholder="Email"
-                  className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
-                />
+                <div className="flex flex-row items-center gap-2">
+
+                  <input
+                    type="checkbox"
+                    checked={role === "Admin"}        // select if role is Admin
+                    onChange={() => setRole(role === "Admin" ? "" : "Admin")}  // toggle Admin
+                    name="Admin"
+                    className="
+        appearance-none w-4 h-4 border-2 border-gray-400 rounded
+        checked:bg-green-500 checked:border-green-500
+        focus:outline-none transition-colors
+      "
+                  /><label htmlFor="Admin"> Admin
+                  </label>
+                </div>
+
+                <div className="flex flex-row items-center gap-2">
+
+                  <input
+                    type="checkbox"
+                    checked={role === "Employee"}    // select if role is Employee
+                    onChange={() => setRole(role === "Employee" ? "" : "Employee")}  // toggle Employee
+                    name="Employee"
+                    className="
+        appearance-none w-4 h-4 border-2 border-gray-400 rounded
+        checked:bg-green-500 checked:border-green-500
+        focus:outline-none transition-colors
+      "
+                  />    <label htmlFor="Employee">Employee
+                  </label>
+                </div>
               </div>
             </div>
             <div className="w-full sm:flex sm:justify-center">
