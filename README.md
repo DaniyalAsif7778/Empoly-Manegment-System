@@ -1,12 +1,79 @@
 # React + Vite
+# Employee Management System (Frontend) - Step 1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Employee Management Flow](assets/ems-flow.png)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project focuses on building the **frontend** for an Employee Management System with **low-level design**, **secure authentication**, **Redux Toolkit**, **better UI/UX**, and **basic SEO & performance optimizations**.
 
+---
+
+## Low-Level Design
+
+
+### Folder Structure
+
+
+components/ → buttons, inputs, modals, tables
+pages/ → login, signup, dashboard, profile
+store/ → authSlice, employeeSlice
+hooks/ → useSignup, useValidator
+utils/ → validators, formatting
+styles/ → global CSS or Tailwind config
+
+
+### Data & Navigation
+
+- Define data shapes for employees and admins
+- Plan routes and navigation between pages
+
+---
+
+## Secure Authentication
+
+- Use **Redux Toolkit** to store auth state
+- Validate forms with **email & password regex**
+- Store login token/id in **localStorage** (never plain passwords)
+- Optional: simulate password hashing
+
+---
+
+## Redux Toolkit
+
+- **Slices**: 
+  - `authSlice` → user info, login status
+  - `employeeSlice` → employee list, CRUD operations
+- **Async thunks**: simulate API calls
+- **Selectors**: access auth or employee state anywhere
+
+---
+
+## Better UI / UX
+
+- Responsive layout with **Tailwind CSS**
+- Reusable components: `Button`, `Input`, `Modal`, `Table`
+- Form feedback: display success/error messages
+- Basic accessibility: proper labels, focus outlines
+
+---
+
+## SEO & Performance
+
+- Meta tags (title, description) using **React Helmet** or `index.html`
+- Semantic HTML: `header`, `main`, `section`
+- Lazy-load pages/components (`React.lazy + Suspense`)
+- Optimize images: compress or use SVGs for icons
+
+---
+
+## Other Basic Things
+
+- Error handling: show network or state errors
+- Debounce forms: prevent validation on every keystroke
+- Environment config: separate dev/test API URLs
+- Consistent naming: actions, slice names, state keys
+ 
+ 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
