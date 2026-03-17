@@ -1,6 +1,6 @@
 import React from "react";
-import { useAuthContext } from "../context/AuthContex";
-import { CompletedButton, FailedButton, WorkingButtons } from "../imports";
+import { useAuthContext } from "../../context/AuthContex";
+import { CompletedButton, FailedButton, WorkingButtons } from "../../imports";
 import { toast } from "react-hot-toast";
 
 function TasksList() {

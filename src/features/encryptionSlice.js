@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    encrypted:"",
-    nonce:"",
+    encryptedEmail:"",
+    nonceEmail:"",
 }
 
 
@@ -10,9 +10,12 @@ const encryptionSlice = createSlice({
     name:"encryption",
     initialState,
     reducers:{
-        setState:(state,action)=>{
+        setEncryptionEmail:(state,action)=>{
             state.encrypted = action.payload.encrypted;
             state.nonce = action.payload.nonce
+        },
+        setEncryptionPassword:()=>{
+
         }
     }
 }

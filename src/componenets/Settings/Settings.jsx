@@ -2,16 +2,16 @@ import React from "react";
 import UpdateProfile from "./UpdateProfile";
 import ChangePassword from "./ChangePassword";
 import Delete from "./Delete";
-import { useAuthContext } from "../../context/AuthContex";
-
+ import { useSelector } from "react-redux"; 
 const Settings = () => {
-  const { currentadmin ,currentuser } = useAuthContext();
+ 
+const currentUser = useSelector((state)=> state.currentUser.user)
 
-  const isLoggedIn = currentadmin?.loginStatus;
-  const userLogedIn = currentuser?.loginStatus;
+  const isLoggedIn = currentUser?.loginStatus;
+ 
   return (
     <div>
-      {isLoggedIn || userLogedIn ? (
+      {isLoggedIn ? (
         <div className="max-w-4xl mx-auto py-10 px-6 text-[var(--color-text-primary)] font-sans">
           <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center">Settings</h2>
 

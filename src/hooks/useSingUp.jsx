@@ -1,137 +1,120 @@
-import { useNavigate } from "react-router";
+ 
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { v4 as uuidv4 } from "uuid";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { addAdmin } from "../features/user/UserSlice";
-import { setState } from "../features/encryptionSlice";
-import { CryptoService, useValidator } from './hooks'
-function useSingUp(name, debounceEmail, debouncePassword, role, setEmailError, setPasswordError) {
-    const dispatch = useDispatch();
-    console.log(debounceEmail,debouncePassword);
-    const navigate =  useNavigate()
-    const data = useSelector((state) => state )
-    const safeTrim = (val) => (typeof val === "string" ? val.trim() : "");
-    const { emailValid, passwordValid } = useValidator(debounceEmail, debouncePassword)
-    console.log(emailValid, passwordValid);
-    useEffect(() => {
-        if (!emailValid && debounceEmail !== "" && !debounceEmail.includes("@")) {
-          setEmailError("Wrong formate");
-        } else {
-          setEmailError("");
-        }
-      }, [emailValid, debounceEmail, setEmailError]);
-      
-      useEffect(() => {
-        if (!passwordValid && debouncePassword !== "" && debouncePassword.length > 8 ) {
-          setPasswordError("Wrong formate");
-        } else {
-          setPasswordError("");
-        }
-      }, [passwordValid, debouncePassword, setPasswordError]);
-    const SignupHandler = () => {
-       let result="";
-      async function name() {
-        const cryptoService = new CryptoService("mySecretKey123456789");
+import { addAdmin, addEmployee } from "../features/user/UserSlice";
+import useValidator from "./useValidator";
 
-          result = cryptoService.encrypt(debouncePassword);
+function useSignUp(
+  name,
+  debounceEmail,
+  debouncePassword,
+  role,
+  setEmailError,
+  setPasswordError
+) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const users = useSelector((state) => state.users);
+console.log(role);
 
-        localStorage.setItem("adminId", result);
-        dispatch(setState(result))
-      
-        
-     }
-    name()
-    console.log(data);
-      const loginDetails = {
-        id: uuidv4(),
-        name: safeTrim(name),
-        Email: safeTrim(result.encrypted),
-        password: safeTrim(debouncePassword),
+  const {
+    emailValid,
+    passwordValid,
+    emailTaken,
+    passwordTaken,
+    employerId
+  } = useValidator(debounceEmail, debouncePassword, role);
+
+  const signUpHandler = () => {
+    // 1️⃣ Empty fields check
+    if (!role) {
+       toast.error("please Select the role")
+       return
+    }
+    if (!name || !debounceEmail || !debouncePassword) {
+      toast.error("All fields are required");
+      return;
     }
 
-    Object.keys(loginDetails).forEach((key) => {
-        if (loginDetails[key] == "") {
-            toast.error(` Enter ${key}. `);
+    // 2️⃣ Format & taken validation
+    if (!emailValid) {
+      setEmailError("Wrong email format");
+      return;
+    }else{
+      setEmailError("")
+    }
 
-        }
-    })
-      
-        if (safeTrim(name) !== "" && safeTrim(debounceEmail) !== "" && safeTrim(debouncePassword) !== "" && safeTrim(role) == "Admin") {
-            if (emailValid, passwordValid) {
+    if (!passwordValid) {
+      setPasswordError("Password too weak or wrong format");
+      return;
+    }else{
+      setEmailError("")
+    }
 
-                const toastId = toast.loading("Creating admin...");
-                setTimeout(() => {
-                    
-                    dispatch(addAdmin(loginDetails))
+    if (role === "Admin" && emailTaken) {
+      setEmailError("Email is already taken");
+      return;
+    }else{
+      setEmailError("")
+    }
 
+    if (passwordTaken) {
+      setPasswordError("Password is already taken");
+      return;
+    }else{
 
-                    toast.dismiss(toastId);
-                    toast.success("Admin created successfully!");
+      setPasswordError("")
+    }
 
+    if (role === "Employee" && !emailTaken) {
+      setEmailError("Use correct admin email");
+      return;
+    }else{
 
-                    navigate("/admindashboard")
-                }, 700);
+      setPasswordError("")
+    }
 
-               
-            }
-        }
+    if (role === "Employee" && !employerId) {
+      setEmailError("Admin not found. Please signup first");
+      return;
+    }else{
 
+      setPasswordError("")
+    }
 
-
-   
-        // if (safeTrim(role).toLowerCase() === "employee") {
-        //   let nameTaken = false;
-        //   let passwordTaken = false;
-
-        //   data.App.forEach((admin) => {
-        //     if (
-        //       admin.Employees.some(
-        //         (emp) =>
-        //           safeTrim(emp.userName).toLowerCase() === safeTrim(name).toLowerCase()
-        //       )
-        //     ) {
-        //       nameTaken = true;
-        //     }
-
-        //     if (
-        //       admin.Employees.some(
-        //         (emp) =>
-        //           safeTrim(emp.password).toLowerCase() === safeTrim(password).toLowerCase()
-        //       )
-        //     ) {
-        //       passwordTaken = true;
-        //     }
-        //   });
-
-        //   if (nameTaken) return toast.error("Employee name is already taken.");
-        //   if (passwordTaken) return toast.error("Password is already taken.");
-
-        //   const toastId = toast.loading("Creating employee...");
-        //   setTimeout(() => {
-        //     addUser({
-        //       id: uuidv4(),
-        //       userName: safeTrim(name),
-        //       Email: safeTrim(email),
-        //       password: safeTrim(password),
-        //       loginStatus: true,
-        //       tasks: [],
-        //     });
-
-        //     toast.dismiss(toastId);
-        //     toast.success("Employee created successfully!");
-
-        //     setName("");
-        //     setEmail("");
-        //     setPassword("");
-        //     setRole("");
-        //     navigate("/employedashboard");
-        //   }, 700);
-        // }    
-         console.log(data);
-
+    // 3️⃣ Prepare user object
+    const loginDetails = {
+      id: uuidv4(),
+      name: name.trim(),
+      Email: debounceEmail.trim(),
+      password: debouncePassword.trim(),
+      loginStatus: true
     };
-    return { SignupHandler }
+
+    // 4️⃣ Show toast
+    const toastId = toast.loading(role === "Admin" ? "Creating Admin..." : "Creating Employee...");
+
+    setTimeout(() => {
+      if (role === "Admin") {
+        dispatch(addAdmin({ ...loginDetails, EmployerID: uuidv4(),role:"admin" }));
+        toast.dismiss(toastId);
+        toast.success("Admin created successfully!");
+      }
+
+      if (role === "Employee") {
+        dispatch(addEmployee({ ...loginDetails,role:"employee",adminID: employerId }));
+        toast.dismiss(toastId);
+        toast.success("Employee created successfully!");
+      }
+
+      navigate("/login");
+    }, 700);
+  };
+
+  return { signUpHandler };
 }
 
-export default useSingUp
+export default useSignUp;

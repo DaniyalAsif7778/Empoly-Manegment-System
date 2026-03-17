@@ -32,30 +32,8 @@ const [oldname , setOldName] = useState();
 
 
 
-     { currentadmin.loginStatus ? (<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <input
-          type="text"
-          value={name}
-
-          onChange={(e) => {
-            setName(e.target.value)
-          }}
-          placeholder="Full Name"
-          className="bg-[var(--color-navbar)] text-white px-4 py-3 rounded-lg border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition"
-        />
-        <input
-          type="email"
-          value={email}
-
-          onChange={(e) => {
-            setEmail(e.target.value)
-          }}
-          placeholder="Email Address"
-          className="bg-[var(--color-navbar)] text-white px-4 py-3 rounded-lg border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition"
-        />
-      </div> ):(<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-        <input
+     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+     <input
           type="text"
           value={oldname}
 
@@ -65,6 +43,7 @@ const [oldname , setOldName] = useState();
           placeholder=" Old Name"
           className="bg-[var(--color-navbar)] text-white px-4 py-3 rounded-lg border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition"
         />
+        
         <input
           type="text"
           value={name}
@@ -75,8 +54,11 @@ const [oldname , setOldName] = useState();
           placeholder="Full Name"
           className="bg-[var(--color-navbar)] text-white px-4 py-3 rounded-lg border border-[var(--color-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition"
         />
-      </div>)
-}
+        
+      </div>   
+      
+       
+ 
 
       {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <input

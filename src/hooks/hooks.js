@@ -1,3 +1,5 @@
 import useValidator from "./useValidator";
 import CryptoService from "./encyription";
-export {useValidator,CryptoService};
+import useUserFinder  from "./useUserFinder";
+ 
+export { useValidator, CryptoService ,useUserFinder};

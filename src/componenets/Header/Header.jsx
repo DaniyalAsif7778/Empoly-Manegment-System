@@ -1,15 +1,20 @@
-import React, {  useState } from 'react';
+import React, {  useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import { useAuthContext } from '../../context/AuthContex';
- 
+ import { useSelector } from 'react-redux';
 function Header() {
+  const currentUser = useSelector((state)=> state.currentUser.user)
   const { currentadmin, currentuser } = useAuthContext();
   const [menuOpen, setMenuOpen] = useState(false);
+useEffect(()=>{
+  console.log(currentUser,"admin");
+},[currentUser])
+  console.log();
 
-  const isLoggedIn = currentadmin.loginStatus || currentuser.loginStatus;
- 
+  const isLoggedIn = currentUser?.loginStatus  
+       
   return (
-    <header className="w-full bg-surface text-text-primary border-b border-border px-6 py-4">
+    <header className="w-full bg-navbar text-text-primary border-b border-border px-6 py-4">
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -47,12 +52,12 @@ function Header() {
             <li>
               <NavLink to="/about" className="hover:text-primary-hover transition">About</NavLink>
             </li>
-            {currentadmin.loginStatus && (
+            {currentUser?.role == "admin" && (
               <li>
                 <NavLink to="/admindashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
             )}
-            {currentuser.loginStatus && (
+            {currentUser?.role == "employee"  && (
               <li>
                 <NavLink to="/employedashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
@@ -62,14 +67,14 @@ function Header() {
                 <NavLink to="/settings" className="hover:text-primary-hover transition">Settings</NavLink>
               </li>
             )}
-            {!currentadmin.loginStatus && !currentuser.loginStatus && (
+            {!isLoggedIn  && (
               <li>
                 <NavLink to="/singup" className="hover:text-primary-hover transition">Sign up</NavLink>
               </li>
               
             
             )}
-              {!currentadmin.loginStatus && !currentuser.loginStatus && (
+              {!isLoggedIn && (
               <li>
               <NavLink to="/login" className="hover:text-primary-hover transition">Login</NavLink>
             </li>
@@ -91,12 +96,12 @@ function Header() {
             <li>
               <NavLink to="/about" className="hover:text-primary-hover transition">About</NavLink>
             </li>
-            {currentadmin.loginStatus && (
+            {currentUser?.role == "admin"&& (
               <li>
                 <NavLink to="/admindashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
             )}
-            {currentuser.loginStatus && (
+            {currentUser?.role == "employee" && (
               <li>
                 <NavLink to="/employedashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
@@ -106,12 +111,12 @@ function Header() {
                 <NavLink to="/settings" className="hover:text-primary-hover transition">Settings</NavLink>
               </li>
             )}
-            {!currentadmin.loginStatus && !currentuser.loginStatus && (
+            {!isLoggedIn&& (
               <li>
                 <NavLink to="/singup" className="hover:text-primary-hover transition">Sign up</NavLink>
               </li>
             )}
-              {!currentadmin.loginStatus && !currentuser.loginStatus && (
+              {!isLoggedIn && (
               <li>
               <NavLink to="/login" className="hover:text-primary-hover transition">Login</NavLink>
             </li>

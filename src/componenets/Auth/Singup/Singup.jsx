@@ -1,234 +1,213 @@
+
 import React, { useEffect, useState } from "react";
 import useSingUp from "../../../hooks/useSingUp";
-
+import { Button, Input } from "../../components";
+import { useRef } from "react";
 function Signup() {
+  const nameRef = useRef()
+  const passwordRef = useRef()
+  const emailRef = useRef()
+  const adminRef = useRef()
+  const employeeRef = useRef()
 
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [debounceEmail, setDebounceEmail] = useState("")
-  const [debouncePassword, setDebouncePassword] = useState("")
+
+  const [debounceEmail, setDebounceEmail] = useState("");
+  const [debouncePassword, setDebouncePassword] = useState("");
+
   useEffect(() => {
     const handler = setTimeout(() => {
+      setDebounceEmail(email);
+      setDebouncePassword(password);
+    }, 600);
 
+    return () => clearTimeout(handler);
+  }, [email, password]);
 
-      setDebounceEmail(email)
-      setDebouncePassword(password)
-
-
-
-
-    }, 1000)
-    return ()=> clearTimeout(handler)
-  }, [email, password
-  ])
-  console.log(debounceEmail,debouncePassword);
-  
-  const { SignupHandler } = useSingUp(name, debounceEmail, debouncePassword, role, setEmailError, setPasswordError);
-   
-  
-  // // const SignupHandler = () => {
-
-
-  // //   const loginDetails = {
-  // //     id: uuidv4(),
-  // //     name: safeTrim(name),
-  // //     Email: safeTrim(email),
-  // //     password: safeTrim(password),
-  // //   }
-
-  // //   Object.keys(loginDetails).forEach((key) => {
-  // //     if (loginDetails[key] == "") {
-  // //       toast.error(` Enter ${key}. `);
-
-  // //     }
-  // //   })
-  // //   if (safeTrim(name) !== "" && safeTrim(email) !== "" && safeTrim(password) !== "" && safeTrim(role) == "Admin") {
-  // //     if (emailValid, passwordValid) {
-
-  // //       const toastId = toast.loading("Creating admin...");
-  // //       setTimeout(() => {
-  // //         async function name() {
-  // //           const cryptoService = new CryptoService("mySecretKey123456789");
-
-  // //           const result = cryptoService.encrypt("Admin123");
-
-  // //           localStorage.setItem("adminId", result);
-  // //           console.log(result);
-  // //         }
-  // //         name()
-  // //         dispatch(addAdmin(loginDetails))
-
-
-  // //         toast.dismiss(toastId);
-  // //         toast.success("Admin created successfully!");
-
-
-  // //         setName("");
-  // //         setEmail("");
-  // //         setPassword("");
-  // //         setRole("");
-
-
-  // //       }, 700);
-
-
-  // //     }
-  // //   }
-
-
-
-  //   console.log(data);
-  //   // if (safeTrim(role).toLowerCase() === "employee") {
-  //   //   let nameTaken = false;
-  //   //   let passwordTaken = false;
-
-  //   //   data.App.forEach((admin) => {
-  //   //     if (
-  //   //       admin.Employees.some(
-  //   //         (emp) =>
-  //   //           safeTrim(emp.userName).toLowerCase() === safeTrim(name).toLowerCase()
-  //   //       )
-  //   //     ) {
-  //   //       nameTaken = true;
-  //   //     }
-
-  //   //     if (
-  //   //       admin.Employees.some(
-  //   //         (emp) =>
-  //   //           safeTrim(emp.password).toLowerCase() === safeTrim(password).toLowerCase()
-  //   //       )
-  //   //     ) {
-  //   //       passwordTaken = true;
-  //   //     }
-  //   //   });
-
-  //   //   if (nameTaken) return toast.error("Employee name is already taken.");
-  //   //   if (passwordTaken) return toast.error("Password is already taken.");
-
-  //   //   const toastId = toast.loading("Creating employee...");
-  //   //   setTimeout(() => {
-  //   //     addUser({
-  //   //       id: uuidv4(),
-  //   //       userName: safeTrim(name),
-  //   //       Email: safeTrim(email),
-  //   //       password: safeTrim(password),
-  //   //       loginStatus: true,
-  //   //       tasks: [],
-  //   //     });
-
-  //   //     toast.dismiss(toastId);
-  //   //     toast.success("Employee created successfully!");
-
-  //   //     setName("");
-  //   //     setEmail("");
-  //   //     setPassword("");
-  //   //     setRole("");
-  //   //     navigate("/employedashboard");
-  //   //   }, 700);
-  //   // }
-  // };
-  // console.log(data.Admins, "data");
+  const { signUpHandler } = useSingUp(
+    name,
+    debounceEmail,
+    debouncePassword,
+    role,
+    setEmailError,
+    setPasswordError
+  );
+  const isDisabled = !name || !email || !password || !role;
   return (
-    <div className="signup-container w-full h-screen flex items-center justify-center p-4">
-      <div className="h-max w-full max-w-3xl bg-navbar p-4 rounded-lg border-2 border-border">
-        <form className="w-full h-full" onSubmit={(e) => {
-          e.preventDefault();
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[var(--color-bg)]">
 
-          SignupHandler()
+      <div className="w-full max-w-md bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-xl p-8">
 
+        <h2 className="text-3xl font-semibold mb-2 text-[var(--color-text-primary)]">
+          Create Account
+        </h2>
 
-        }}>
-          <fieldset className="h-full border-2 border-border border-solid rounded-md p-2">
-            <legend className="p-2 text-text-primary text-2xl">Sign Up</legend>
-            <div className="p-2  ">
-              <div className="flex flex-col">
-                <div className="flex flex-col items-start justify-center gap-0.5 mb-2.5">
-                  <label htmlFor="name" className="text-text-primary">Name :</label>
-                  <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    type="text"
-                    placeholder="Name"
-                    className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
-                  />
-                </div>
+        <p className="text-sm mb-6 text-[var(--color-text-secondary)]">
+          Register for the employee management system
+        </p>
 
-                <div className="flex flex-col items-start justify-center gap-0.5 mt-6 mb-2.5">
-                  <label htmlFor="password" className="text-text-primary">Password :</label>
-                  <input
-                    value={password}
-                    onChange={(e) => {
+        <form
+          className="space-y-5"
+          onSubmit={(e) => {
+            e.preventDefault();
+            signUpHandler();
+          }}
+        >
+          {/* <Input   
+              type="password"
+            label="password"
+            name="password"
+            ref={passwordRef}
+            error={passwordError}
+            placeholder="Enter your password"
+            value={password}
+            onchange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-md bg-[var(--color-navbar)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition" /> 
+             */}
+          {/* Name */}
+          <div className="space-y-1">
+            {/* <label className="text-sm text-[var(--color-text-secondary)]">
+              Name
+            </label> */}
+            <Input
+              name="name"
+              label="Name"
+              ref={nameRef}
+              type="text"
+              placeholder="Enter name"
+              value={name}
+              onchange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-2 rounded-md bg-[var(--color-navbar)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]"
+            />
+            {/* <input
+              type="text"
+              placeholder="Enter name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-2 rounded-md bg-[var(--color-navbar)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]"
+            /> */}
+          </div>
 
-                      setPassword(e.target.value)
+          {/* Password */}
+          <div className="space-y-1">
+            {/* <label className="text-sm text-[var(--color-text-secondary)]">
+              Password
+            </label> */}
+            <Input
+              name="password"
+              label="password"
+              ref={passwordRef}
+              type="password"
+              error={passwordError}
+              placeholder="Enter password"
+              value={password}
+              onchange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 rounded-md bg-[var(--color-navbar)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]"
+            />
+            {/* <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 rounded-md bg-[var(--color-navbar)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]"
+            /> */}
+            {/* 
+            {passwordError && (
+              <p className="text-xs text-[var(--color-error)]">
+                {passwordError}
+              </p>
+            )} */}
+          </div>
 
+          {/* Email */}
+          <div className="space-y-1">
+            {/* <label className="text-sm text-[var(--color-text-secondary)]">
+              Email
+            </label> */}
+            <Input
+              name="email"
+              label="Email"
+              ref={emailRef}
+              type="email"
+              error={emailError}
+              placeholder="Enter email"
+              value={email}
+              onchange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 rounded-md bg-[var(--color-navbar)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]"
+            />
+            {/* <input
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 rounded-md bg-[var(--color-navbar)] border border-[var(--color-border)] text-[var(--color-text-primary)] focus:outline-none focus:border-[var(--color-primary)]"
+            />
 
-                    }}
-                    type="password"
-                    placeholder="Password"
-                    className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
-                  />
-                  <p>{passwordError}</p>
-                </div>
-                <div className="flex flex-col items-start justify-center gap-0.5 mt-6 mb-2.5">
-                  <label htmlFor="email" className="text-text-primary">Email :</label>
-                  <input
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    type="email"
-                    placeholder="Email"
-                    className="w-full border-2 border-border rounded-md p-2 text-text-secondary"
-                  />
-                  <p>{emailError}</p>
-                </div>
+            {emailError && (
+              <p className="text-xs text-[var(--color-error)]">
+                {emailError}
+            //   </p> */}
+            {/* // )} */}
+          </div>
+
+          {/* Role */}
+          <div className="space-y-2">
+            <label className="text-sm text-[var(--color-text-secondary)]">
+              Role :
+            </label>
+
+            <div className="flex gap-6   py-2">
+
+              <div className="flex flex-row-reverse items-center  justify-center gap-2 cursor-pointer text-[var(--color-text-primary)]">
+                <Input
+                  labelClassName={" "}
+                  label="Admin"
+                  ref={adminRef}
+                  type="radio"
+                  name="role"
+                  value="Admin"
+                  checked={role === "Admin"}
+                  onchange={(e) => setRole(e.target.value)}
+                  className="accent-[var(--color-primary)]"
+                />
+
               </div>
-              <div className="flex flex-col  items-start justify-start gap-2 mb-2.5">
-                <label htmlFor="role" className="text-text-primary">Role :</label>
-                <div className="flex flex-row items-center gap-2">
 
-                  <input
-                    type="checkbox"
-                    checked={role === "Admin"}        // select if role is Admin
-                    onChange={() => setRole(role === "Admin" ? "" : "Admin")}  // toggle Admin
-                    name="Admin"
-                    className="
-        appearance-none w-4 h-4 border-2 border-gray-400 rounded
-        checked:bg-green-500 checked:border-green-500
-        focus:outline-none transition-colors
-      "
-                  /><label htmlFor="Admin"> Admin
-                  </label>
-                </div>
+              <div div className="flex  flex-row-reverse justify-center  items-center gap-2 cursor-pointer text-[var(--color-text-primary)]">
+                <Input
 
-                <div className="flex flex-row items-center gap-2">
+                  label="Employee"
+                  ref={employeeRef}
+                  type="radio"
+                  name="role"
+                  value="Employee"
+                  checked={role === "Employee"}
+                  onchange={(e) => setRole(e.target.value)}
+                  className="accent-[var(--color-primary)] "
+                />
 
-                  <input
-                    type="checkbox"
-                    checked={role === "Employee"}    // select if role is Employee
-                    onChange={() => setRole(role === "Employee" ? "" : "Employee")}  // toggle Employee
-                    name="Employee"
-                    className="
-        appearance-none w-4 h-4 border-2 border-gray-400 rounded
-        checked:bg-green-500 checked:border-green-500
-        focus:outline-none transition-colors
-      "
-                  />    <label htmlFor="Employee">Employee
-                  </label>
-                </div>
               </div>
+
             </div>
-            <div className="w-full sm:flex sm:justify-center">
-              <button
-                type="submit"
-                className="w-full max-w-2xs sm:item-center text-Semibold bg-primary text-text-primary"
-              >
-                Sign up
-              </button>
-            </div>
-          </fieldset>
+          </div>
+
+          {/* Button */}
+
+          <Button type="submit"
+            disabled={isDisabled}
+            text="SingUp"
+            className={`
+              w-full py-2.5 rounded-md font-medium transition
+              bg-[var(--color-primary)] text-white
+              
+              ${isDisabled ? "opacity-50 cursor-not-allowed hover:bg-[var(--color-primary-hover)]" : ""}
+            `} />
         </form>
       </div>
     </div>
@@ -236,3 +215,4 @@ function Signup() {
 }
 
 export default Signup;
+

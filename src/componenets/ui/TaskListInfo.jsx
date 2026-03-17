@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAuthContext } from "../context/AuthContex";
+import { useAuthContext } from "../../context/AuthContex";
 
 function TaskListInfo() {
   const { currentuser, data } = useAuthContext();
