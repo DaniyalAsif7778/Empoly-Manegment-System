@@ -1,18 +1,21 @@
 import React, {  useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import { useAuthContext } from '../../context/AuthContex';
- import { useSelector } from 'react-redux';
+ import { useSelector ,useDispatch } from 'react-redux';
+ import { setMenue } from '../../features/menueSlice';
 function Header() {
   const currentUser = useSelector((state)=> state.currentUser.user)
+  const isOpened = useSelector((state)=> state.menue.isOpened)
   const { currentadmin, currentuser } = useAuthContext();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [status ,setStatus] =useState(false)
+  const dispatch = useDispatch()
 useEffect(()=>{
   console.log(currentUser,"admin");
 },[currentUser])
   console.log();
 
   const isLoggedIn = currentUser?.loginStatus  
-       
+     
   return (
     <header className="w-full bg-navbar text-text-primary border-b border-border px-6 py-4">
       <div className="flex justify-between items-center">
@@ -24,7 +27,10 @@ useEffect(()=>{
         {/* Hamburger Button (Mobile) */}
         <div className="sm:hidden">
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => {
+              setStatus(!status)
+              dispatch(setMenue(status))
+            }}
             className="text-text-primary focus:outline-none"
           >
             <svg
@@ -34,7 +40,7 @@ useEffect(()=>{
               strokeWidth={2}
               viewBox="0 0 24 24"
             >
-              {menuOpen ? (
+              {isOpened ? (
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               ) : (
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -87,7 +93,7 @@ useEffect(()=>{
       </div>
 
       {/* Mobile Dropdown Menu */}
-      {menuOpen && (
+      {isOpened && (
         <div className="sm:hidden mt-4">
           <ul className="flex flex-col gap-4 text-sm font-medium">
             <li>
@@ -111,7 +117,7 @@ useEffect(()=>{
                 <NavLink to="/settings" className="hover:text-primary-hover transition">Settings</NavLink>
               </li>
             )}
-            {!isLoggedIn&& (
+            {!isLoggedIn && (
               <li>
                 <NavLink to="/singup" className="hover:text-primary-hover transition">Sign up</NavLink>
               </li>
