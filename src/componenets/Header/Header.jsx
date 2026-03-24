@@ -2,16 +2,17 @@ import React, {  useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import { useAuthContext } from '../../context/AuthContex';
  import { useSelector ,useDispatch } from 'react-redux';
- import { setMenue } from '../../features/menueSlice';
+ import { setHeaderDrawwer } from '../../features/menueSlice';
+ import HeaderDrawer from '../ui/HeaderDrawer';
 function Header() {
   const currentUser = useSelector((state)=> state.currentUser.user)
-  const isOpened = useSelector((state)=> state.menue.isOpened)
+  const isOpened = useSelector((state)=> state.menue.headerDrawer)
   const { currentadmin, currentuser } = useAuthContext();
-  const [status ,setStatus] =useState(false)
+  const [status ,setStatus] =useState(true)
   const dispatch = useDispatch()
 useEffect(()=>{
-  console.log(currentUser,"admin");
-},[currentUser])
+  console.log(currentUser ,status,"admin");
+},[currentUser,status])
   console.log();
 
   const isLoggedIn = currentUser?.loginStatus  
@@ -21,7 +22,10 @@ useEffect(()=>{
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <span className="text-xl font-bold">EmploManager</span>
+         {
+          currentUser.loginStatus &&  <HeaderDrawer status1={ true}   />
+         }
+<h1 className=' font-bold text-xl whitespace-nowrap'><span className='text-primary '>Emplo</span><span className='text-text-primary'>Manager</span></h1>
         </div>
 
         {/* Hamburger Button (Mobile) */}
@@ -29,7 +33,7 @@ useEffect(()=>{
           <button
             onClick={() => {
               setStatus(!status)
-              dispatch(setMenue(status))
+              dispatch(setHeaderDrawwer(status))
             }}
             className="text-text-primary focus:outline-none"
           >
@@ -60,7 +64,7 @@ useEffect(()=>{
             </li>
             {currentUser?.role == "admin" && (
               <li>
-                <NavLink to="/admindashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
+                <NavLink to="/DashBoard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
             )}
             {currentUser?.role == "employee"  && (
@@ -104,7 +108,7 @@ useEffect(()=>{
             </li>
             {currentUser?.role == "admin"&& (
               <li>
-                <NavLink to="/admindashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
+                <NavLink to="/DashBoard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
             )}
             {currentUser?.role == "employee" && (

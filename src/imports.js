@@ -2,8 +2,18 @@ import Login from "./componenets/Auth/Login/Login";
 import Singup from "./componenets/Auth/Singup/Singup.jsx";
 import   Header   from "./componenets/Header/Header.jsx";
 import   Footer from "./componenets/Footer/Footer.jsx";
- import  AdminDashbord  from './componenets/DashBoard/AdminDashboard.jsx' ;
- import EmpolyDashBoard from "./componenets/DashBoard/EmpolyDashboard.jsx";
+ import  AdminDashbord  from './componenets/Admin/AdminDashboard.jsx' ;
+import AdminDepartment from "./componenets/Admin/Departments/AdminDepartment.jsx";
+import AdminEmployees from "./componenets/Admin/Employees/adminEmployees.jsx";
+import AdminProfile from "./componenets/Admin/Profile/AdminProfile.jsx";
+import AdminReports from "./componenets/Admin/Reports/AdminReports.jsx";
+import AdminTasks from "./componenets/Admin/Tasks/AdminTasks.jsx";
+ import EmpolyDashBoard from "./componenets/Employee/EmpolyDashboard.jsx";
+import Annoucments from "./componenets/Employee/Annoucments/Annoucments.jsx";
+import Colleagues from "./componenets/Employee/Colleagues/Colleagues.jsx";
+import EmployeeLeave from "./componenets/Employee/Leave/Leave.jsx";
+import EmployeeSchedule from "./componenets/Employee/Schedule/Schedule.jsx";
+import EmployeeTasks from "./componenets/Employee/Tasks/Tasks.jsx";
  import    DashBordHeader  from './componenets/ui/DashBordHeader.jsx'
   import Home from "./componenets/Home/Home.jsx";
  import TaskListInfo from "./componenets/ui/TaskListInfo.jsx";
@@ -16,4 +26,6 @@ import   Footer from "./componenets/Footer/Footer.jsx";
  import CompletedButton from "./componenets/ui/CompletedButton.jsx";
  import About from "./componenets/About/About.jsx";
  import Settings from "./componenets/Settings/Settings.jsx";
- export  {Settings, Login, Singup, Header , EmpolyDashBoard,Footer,AdminDashbord,DashBordHeader , About ,Home,TaskListInfo,TasksList, AdminForm ,success,EmployeesList,FailedButton , CompletedButton , WorkingButtons , }
+ import DashBoard from "./componenets/DashBoard/DashBoard.jsx";
+ import OverView from "./componenets/DashBoard/OverView.jsx";
+export  { Settings,DashBoard,OverView, Login, Singup, Header , EmpolyDashBoard,Footer,AdminDashbord,DashBordHeader , About ,Home,TaskListInfo,TasksList, AdminForm ,success,EmployeesList,FailedButton , CompletedButton , WorkingButtons , AdminDepartment, AdminEmployees, AdminProfile, AdminReports, AdminTasks, Annoucments, Colleagues, EmployeeLeave, EmployeeSchedule, EmployeeTasks   }

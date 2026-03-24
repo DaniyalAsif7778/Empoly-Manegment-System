@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Failed() {
+export default function Leave() {
   return (
     <div className="p-4 text-[var(--color-text-primary)]">
-      Failed page
+      Leave page
     </div>
   );
 }

@@ -41,7 +41,7 @@ const dispatch = useDispatch();
          
          
         dispatch(setCurrentUser({ ...admin }))
-        navigate("/admindashboard")
+        navigate("/DashBoard")
         return
       }
     
@@ -67,7 +67,7 @@ const dispatch = useDispatch();
       
     
         dispatch(setCurrentUser({ ...employee  }))
-        navigate("/employedashboard")
+        navigate("/DashBoard")
       }
     }
     //    useUserFinder(user.id)

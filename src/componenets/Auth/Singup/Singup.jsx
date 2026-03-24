@@ -179,7 +179,7 @@ function Signup() {
 
               </div>
 
-              <div div className="flex  flex-row-reverse justify-center  items-center gap-2 cursor-pointer text-[var(--color-text-primary)]">
+              <div   className="flex  flex-row-reverse justify-center  items-center gap-2 cursor-pointer text-[var(--color-text-primary)]">
                 <Input
 
                   label="Employee"

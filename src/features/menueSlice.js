@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
-    isOpened:false,
+     dashBoardDrawer:false,
+     headerDrawer:false,
+   
+
 }
 
 const menueSlice = createSlice({
@@ -9,12 +12,18 @@ const menueSlice = createSlice({
     initialState,
     reducers:{
 
-        setMenue:(state,action)=>{
-           state.isOpened = action.payload
-        }
+        setDashBoardStatus:(state,action)=>{
+           state.dashBoardDrawer = action.payload
+        },
+        setHeaderDrawwer:(
+            state,action
+        )=>{
+            state.headerDrawer = action.payload
+        },
+        
     }
 })
 
 
- export const {setMenue} = menueSlice.actions;
+ export const {setDashBoardStatus,setHeaderDrawwer} = menueSlice.actions;
  export default menueSlice.reducer;
