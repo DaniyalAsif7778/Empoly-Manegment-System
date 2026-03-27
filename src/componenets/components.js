@@ -1,18 +1,18 @@
 import Input from "./ui/Input";
 import Button from "./ui/Button";
 import DashBoard from "./DashBoard/DashBoard";
-import AdminDashbord from "./Admin/AdminDashboard";
-import EmpolyDashBoard from "./Employee/EmpolyDashboard";
+import AdminDashbord from "../pages/admin/AdminDashboard";
+import EmpolyDashBoard from "../pages/employee/EmpolyDashboard";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
-import About from "./About/About";
-import Settings from "./Settings/Settings";
-import Home from "./Home/Home";
+import About from "../pages/About";
+import Settings from "../pages/Settings";
+import Home from "../pages/Home";
 import OverView from "./DashBoard/OverView";
 
 // Auth (Login, Signup etc)
-import Login from "./Auth/Login/Login";
-import Singup from "./Auth/Singup/Singup";
+import Login from "../pages/Login";
+import Singup from "../pages/Singup";
 
 // UI-level components
 import DashBordHeader from "./ui/DashBordHeader";
@@ -26,16 +26,16 @@ import FailedButton from "./ui/FailedButton";
 import CompletedButton from "./ui/CompletedButton";
 
 // Stubbed/placeholder pages
-import Colleagues from "./Employee/Colleagues/Colleagues";
-import Leave from "./Employee/Leave/Leave";
-import Schedule from "./Employee/Schedule/Schedule";
-import Tasks from "./Employee/Tasks/Tasks";
-import Annoucments from "./Employee/Annoucments/Annoucments";
-import AdminReports from "./Admin/Reports/AdminReports";
-import AdminDepartment from "./Admin/Departments/AdminDepartment";
-import AdminProfile from "./Admin/Profile/AdminProfile";
-import AdminEmployees from "./Admin/Employees/adminEmployees";
-import AdminTasks from "./Admin/Tasks/AdminTasks";
+import Colleagues from "../pages/employee/Colleagues";
+import Leave from "../pages/employee/Leave";
+import Schedule from "../pages/employee/Schedule";
+import Tasks from "../pages/employee/Tasks";
+import Annoucments from "../pages/employee/Annoucments";
+import AdminReports from "../pages/admin/AdminReports";
+import AdminDepartment from "../pages/admin/AdminDepartment";
+import AdminProfile from "../pages/admin/AdminProfile";
+import AdminEmployees from "../pages/admin/AdminEmployees";
+import AdminTasks from "../pages/admin/AdminTasks";
 import Error from "./ui/error";
 import Failed from "./ui/failed";
 export {

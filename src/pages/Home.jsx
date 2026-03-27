@@ -1,8 +1,11 @@
  
- import Settings from "../Settings/Settings";
+ import Settings from "./Settings";
  import { useEffect } from "react";
  import { useDispatch,useSelector } from "react-redux";
- import {addAdmin} from "../../features/user/UserSlice"
+ import {addAdmin} from "../features/user/UserSlice"
+import ProgressBar from "../componenets/ui/ProgressBar";
+import StatusBatch from "../componenets/ui/StatusBatch";
+import Avatar from "../componenets/ui/Avatar";
  const Home = () => {
   const data = useSelector((state)=>  state.user)
   console.log(data);
@@ -81,7 +84,9 @@
           Start Now
         </button>
       </section>
-
+          <section className="w-full h-full"><ProgressBar/>
+          
+          </section>
       {/* Footer */}
       <footer className="bg-[var(--color-navbar)] py-6 text-center text-[var(--color-text-secondary)] text-sm">
         © {new Date().getFullYear()} EMPLOMANAGE — Built with 💻 & 🧠

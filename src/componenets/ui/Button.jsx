@@ -1,9 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router'
-function Button({  text,className , type, link ,loading=false,disabled=false}) {
+function Button({  text,className , type, link ,loading=false,disabled=false , onclick},) {
+   
   return (
     
-          <button  type={type} disabled={disabled} className={`${className}`}>
+          <button  type={type} disabled={disabled} className={`${className}`}  onClick={onclick}>
         {loading ? `${text}...`: text }
     </button>
    

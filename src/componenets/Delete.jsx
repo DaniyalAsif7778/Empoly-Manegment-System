@@ -1,9 +1,9 @@
 import React from 'react'
-import { useAuthContext } from '../../context/AuthContex'
+import { useAuthContext } from '../context/AuthContex'
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteAdmin, deleteEmployee } from '../../features/user/UserSlice';
-import { setCurrentUser } from '../../features/currentUser';
+import { deleteAdmin, deleteEmployee } from '../features/user/UserSlice';
+import { setCurrentUser } from '../features/currentUser';
 function Delete() {
   const dispatch = useDispatch()
   const currentUser = useSelector((state) => state.currentUser.user)

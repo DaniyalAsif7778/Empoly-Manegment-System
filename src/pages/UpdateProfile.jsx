@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { useAuthContext } from '../../context/AuthContex';
+import { useAuthContext } from '../context/AuthContex';
 function UpdateProfile() {
   const [name, setName] = useState();
 const [oldname , setOldName] = useState();

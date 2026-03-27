@@ -4,12 +4,15 @@ import { useAuthContext } from '../../context/AuthContex';
  import { useSelector ,useDispatch } from 'react-redux';
  import { setHeaderDrawwer } from '../../features/menueSlice';
  import HeaderDrawer from '../ui/HeaderDrawer';
+import { Button } from '../components';
+import useLogout from '../../hooks/useLogout';
 function Header() {
   const currentUser = useSelector((state)=> state.currentUser.user)
   const isOpened = useSelector((state)=> state.menue.headerDrawer)
   const { currentadmin, currentuser } = useAuthContext();
   const [status ,setStatus] =useState(true)
   const dispatch = useDispatch()
+ const {logOutHandler}= useLogout()
 useEffect(()=>{
   console.log(currentUser ,status,"admin");
 },[currentUser,status])
@@ -23,7 +26,7 @@ useEffect(()=>{
         {/* Logo */}
         <div className="flex items-center gap-3">
          {
-          currentUser.loginStatus &&  <HeaderDrawer status1={ true}   />
+          currentUser?.loginStatus &&  <HeaderDrawer status1={ true}   />
          }
 <h1 className=' font-bold text-xl whitespace-nowrap'><span className='text-primary '>Emplo</span><span className='text-text-primary'>Manager</span></h1>
         </div>
@@ -69,12 +72,12 @@ useEffect(()=>{
             )}
             {currentUser?.role == "employee"  && (
               <li>
-                <NavLink to="/employedashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
+                <NavLink to="/DashBoard/employedashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
             )}
             {isLoggedIn && (
               <li>
-                <NavLink to="/settings" className="hover:text-primary-hover transition">Settings</NavLink>
+                <NavLink to="/DashBoard/settings" className="hover:text-primary-hover transition">Settings</NavLink>
               </li>
             )}
             {!isLoggedIn  && (
@@ -91,7 +94,15 @@ useEffect(()=>{
               
             
             )}
-              
+                    {
+              isLoggedIn && (
+                <Button onclick={()=>{
+                  logOutHandler()
+                }} text="Logout" className={`  py-2.5 rounded-md font-medium transition
+              bg-[var(--color-primary)] text-white
+              hover:bg-[var(--color-primary-hover)]`} />
+              )
+            }
           </ul>
         </nav>
       </div>
@@ -113,12 +124,12 @@ useEffect(()=>{
             )}
             {currentUser?.role == "employee" && (
               <li>
-                <NavLink to="/employedashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
+                <NavLink to="/DashBoard/employedashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
             )}
             {isLoggedIn && (
               <li>
-                <NavLink to="/settings" className="hover:text-primary-hover transition">Settings</NavLink>
+                <NavLink to="/DashBoard/settings" className="hover:text-primary-hover transition">Settings</NavLink>
               </li>
             )}
             {!isLoggedIn && (
@@ -131,7 +142,7 @@ useEffect(()=>{
               <NavLink to="/login" className="hover:text-primary-hover transition">Login</NavLink>
             </li>
             )}
-           
+      
           </ul>
         </div>
       )}

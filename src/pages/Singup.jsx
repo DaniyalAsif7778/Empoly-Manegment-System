@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
-import useSingUp from "../../../hooks/useSingUp";
-import { Button, Input } from "../../components";
+import useSingUp from "../hooks/useSingUp";
+import { Button, Input } from "../componenets/components";
 import { useRef } from "react";
 function Signup() {
   const nameRef = useRef()

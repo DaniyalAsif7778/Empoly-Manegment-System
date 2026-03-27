@@ -3,12 +3,12 @@ import { useNavigate } from "react-router";
  import useUserFinder from "./useUserFinder"
 import { setCurrentUser } from "../features/currentUser";
 import CryptoService from "./encyription";
-function useLogin(email,password,setPasswordError,setEmailError) {
+function useLogin(email,password,setPasswordError,setEmailError,role) {
     const navigate = useNavigate();
     const Admins = useSelector((state)=> state.users.Admins)
     const Employees = useSelector((state)=> state.users.Employees)
 const dispatch = useDispatch();
-    console.log(Admins,email,password);
+    console.log(Admins,Employees,email,password);
     
     function loginHandler(e) {
       e.preventDefault()
@@ -19,7 +19,7 @@ const dispatch = useDispatch();
       const admin = Admins.find((a) => a.Email === email)
     
       // 2️⃣ check if email exists in employees
-      const employee = Employees.find((emp) => emp.Email === email)
+      const employee = Employees.find((emp) => emp.Email === email  )
     
       // 3️⃣ if email not found anywhere
       if (!admin && !employee) {
@@ -30,7 +30,7 @@ const dispatch = useDispatch();
       }
     
       // 4️⃣ Admin login
-      if (admin) {
+      if (admin && role == "Admin") {
     
         if (admin.password !== password) {
           setPasswordError("Incorrect password")
@@ -40,13 +40,13 @@ const dispatch = useDispatch();
         }
          
          
-        dispatch(setCurrentUser({ ...admin }))
+        dispatch(setCurrentUser({ ...admin  }))
         navigate("/DashBoard")
         return
       }
     
       // 5️⃣ Employee login
-      if (employee) {
+      if (employee && role == "Employee") {
     
         if (employee.password !== password) {
           setPasswordError("Incorrect password")
@@ -57,7 +57,7 @@ const dispatch = useDispatch();
     
         // check admin using EmployerID
         const employer = Admins.find(
-          (adm) => adm.id === employee.EmployerID
+          (adm) => adm.EmployerID === employee.adminID
         )
     
         if (!employer) {
@@ -66,7 +66,7 @@ const dispatch = useDispatch();
         } 
       
     
-        dispatch(setCurrentUser({ ...employee  }))
+        dispatch(setCurrentUser({ ...employee,  }))
         navigate("/DashBoard")
       }
     }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { useAuthContext } from '../../context/AuthContex';
+import { useAuthContext } from '../context/AuthContex';
 function ChangePassword() {
 
   const [newpassword , setNewPassword] = useState();

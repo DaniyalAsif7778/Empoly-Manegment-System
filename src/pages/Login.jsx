@@ -1,21 +1,23 @@
  
 import React, { useState } from "react";
-import useLogin from "../../../hooks/useLogin";
+import useLogin from "../hooks/useLogin";
 import { useRef } from "react";
-import { Input,Button } from "../../components";
+import { Input,Button } from "../componenets/components";
 function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
+  const adminRef = useRef()
+  const employeeRef = useRef()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  const [role, setRole] = useState("");
   const { loginHandler } = useLogin(
     email,
     password,
     setPasswordError,
-    setEmailError
+    setEmailError,role
   );
 
   const isDisabled = !email || !password;
@@ -68,7 +70,46 @@ function Login() {
             
           
           </div>
+                    {/* Role */}
+          <div className="space-y-2">
+            <label className="text-sm text-[var(--color-text-secondary)]">
+              Role :
+            </label>
 
+            <div className="flex gap-6   py-2">
+
+              <div className="flex flex-row-reverse items-center  justify-center gap-2 cursor-pointer text-[var(--color-text-primary)]">
+                <Input
+                  labelClassName={" "}
+                  label="Admin"
+                  ref={adminRef}
+                  type="radio"
+                  name="role"
+                  value="Admin"
+                  checked={role === "Admin"}
+                  onchange={(e) => setRole(e.target.value)}
+                  className="accent-[var(--color-primary)]"
+                />
+
+              </div>
+
+              <div   className="flex  flex-row-reverse justify-center  items-center gap-2 cursor-pointer text-[var(--color-text-primary)]">
+                <Input
+
+                  label="Employee"
+                  ref={employeeRef}
+                  type="radio"
+                  name="role"
+                  value="Employee"
+                  checked={role === "Employee"}
+                  onchange={(e) => setRole(e.target.value)}
+                  className="accent-[var(--color-primary)] "
+                />
+
+              </div>
+
+            </div>
+          </div>
           {/* Button */}
            
           <Button   type="submit"
