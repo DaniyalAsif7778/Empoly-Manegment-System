@@ -17,7 +17,7 @@ A full-featured employee management platform with role-based dashboards, secure 
 
 <br/>
 
-![Dashboard Preview](./src/assets/readme.png)
+![Dashboard Preview](/src/assets/readme.png)
 
 </div>
 
