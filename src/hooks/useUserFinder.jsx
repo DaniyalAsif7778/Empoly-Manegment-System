@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { setCurrentUser } from "../features/currentUser";
-import CryptoService from "./encyription";
+import CryptoService from "../utils/encyription";
 
 function useUserFinder(id) {
   const users = useSelector((state) => state.users.Admins);

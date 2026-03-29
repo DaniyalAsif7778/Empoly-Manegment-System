@@ -1,7 +1,7 @@
 import Login from "./pages/Login.jsx";
 import Singup from "./pages/Singup.jsx";
-import   Header   from "./componenets/Header/Header.jsx";
-import   Footer from "./componenets/Footer/Footer.jsx";
+import   Header   from "./componenets/Header.jsx";
+import   Footer from "./componenets/Footer.jsx";
  import  AdminDashbord  from './pages/admin/AdminDashboard.jsx' ;
 import AdminDepartment from "./pages/admin/AdminDepartment.jsx";
 import AdminEmployees from "./pages/admin/AdminEmployees.jsx";

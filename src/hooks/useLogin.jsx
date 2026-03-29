@@ -2,8 +2,7 @@ import { useSelector ,useDispatch} from "react-redux"
 import { useNavigate } from "react-router";
  import useUserFinder from "./useUserFinder"
 import { setCurrentUser } from "../features/currentUser";
-import CryptoService from "./encyription";
-function useLogin(email,password,setPasswordError,setEmailError,role) {
+ function useLogin(email,password,setPasswordError,setEmailError,role) {
     const navigate = useNavigate();
     const Admins = useSelector((state)=> state.users.Admins)
     const Employees = useSelector((state)=> state.users.Employees)

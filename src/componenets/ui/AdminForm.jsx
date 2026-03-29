@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useAuthContext } from "../../context/AuthContex";
+ 
    import toast from "react-hot-toast";
    import { v4 as uuidv4 } from "uuid";
 function AdminForm() {
-  const { addTask,currentadmin } = useAuthContext();
+  
 
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
@@ -11,44 +11,12 @@ function AdminForm() {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
 
-  const taskHandler = (e) => {
-    e.preventDefault();
-
-    if (!title.trim() || !date.trim() || !assignedTo.trim() || !category.trim()) {
-      toast.error("Please fill all required fields");
-      return;
-    }else{
   
-   
-    // ✅ Call the addTask (actual logic in AuthProvider)
- 
-    addTask({
-      id: uuidv4(),
-      title: title.trim(),
-      date: date.trim(),
-      assignedTo: assignedTo.trim(),
-      category: category.trim(),
-      description: description.trim(),
-      taskStatus: "null",
-    });
-  
-    // ✅ Dismiss and show success after a delay
-     
-  
-    // Reset form fields
-    setTitle("");
-    setDate("");
-    setAssignedTo("");
-    setCategory("");
-    setDescription("");
-    }
-  };
 
   return (
     <div className="h-max w-full bg-surface mt-10">
       <form
-        onSubmit={taskHandler}
-        className="flex flex-col justify-start sm:flex-row items-between"
+         className="flex flex-col justify-start sm:flex-row items-between"
       >
         <div className="w-full p-2 sm:w-1/2">
           <div className="w-5/5 sm:w-4/5 flex flex-col items-start justify-center gap-2 p-3.5">
@@ -89,8 +57,7 @@ function AdminForm() {
     name="assign-to"
     type="text"
     value={assignedTo}
-    onChange={(e) => setAssignedTo(e.target.value)}
-    placeholder="Employee username"
+     placeholder="Employee username"
     list="employee-list"
     className="text-text-disabled border bg-navbar outline-none w-full p-1 border-border-secondary"
   />
