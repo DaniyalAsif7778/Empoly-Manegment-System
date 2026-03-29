@@ -17,7 +17,7 @@ A full-featured employee management platform with role-based dashboards, secure 
 
 <br/>
 
-![EmpoManager Dashboard Preview](./public/preview.png)
+![EmpoManager Dashboard Preview](@/src/ems-flow.png)
 
 </div>
 
