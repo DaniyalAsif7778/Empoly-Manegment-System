@@ -1,16 +1,14 @@
 import React, {  useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
-import { useAuthContext } from '../../context/AuthContex';
- import { useSelector ,useDispatch } from 'react-redux';
- import { setHeaderDrawwer } from '../../features/menueSlice';
- import HeaderDrawer from '../ui/HeaderDrawer';
-import { Button } from '../components';
-import useLogout from '../../hooks/useLogout';
-function Header() {
+  import { useSelector ,useDispatch } from 'react-redux';
+ import { setHeaderDrawwer } from '../features/menueSlice';
+ import HeaderDrawer from './ui/HeaderDrawer';
+import { Button } from './components';
+import {useLogout} from '../hooks/useLogout';
+ function Header() {
   const currentUser = useSelector((state)=> state.currentUser.user)
   const isOpened = useSelector((state)=> state.menue.headerDrawer)
-  const { currentadmin, currentuser } = useAuthContext();
-  const [status ,setStatus] =useState(true)
+   const [status ,setStatus] =useState(true)
   const dispatch = useDispatch()
  const {logOutHandler}= useLogout()
 useEffect(()=>{
@@ -72,7 +70,7 @@ useEffect(()=>{
             )}
             {currentUser?.role == "employee"  && (
               <li>
-                <NavLink to="/DashBoard/employedashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
+                <NavLink to="/DashBoard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
             )}
             {isLoggedIn && (
@@ -124,7 +122,7 @@ useEffect(()=>{
             )}
             {currentUser?.role == "employee" && (
               <li>
-                <NavLink to="/DashBoard/employedashboard" className="hover:text-primary-hover transition">Dashboard</NavLink>
+                <NavLink to="/DashBoard" className="hover:text-primary-hover transition">Dashboard</NavLink>
               </li>
             )}
             {isLoggedIn && (

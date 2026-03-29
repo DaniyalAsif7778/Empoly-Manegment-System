@@ -1,28 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import { useAuthContext } from '../context/AuthContex';
-function UpdateProfile() {
+ function UpdateProfile() {
   const [name, setName] = useState();
 const [oldname , setOldName] = useState();
   const [email, setEmail] = useState();
-  const { updateAdmin,updateUser, currentadmin,currentuser } = useAuthContext();
-
-  const credentialUpdateHandler = () => {
-    if (currentadmin.loginStatus === true) {
-      updateAdmin(name, email);
-    }  
-    if (currentuser.loginStatus === true) {
-      if (oldname === currentuser.userName) {
-        updateUser(name,undefined)
-
-      }else{
-        alert("oldName is incorrect")
-      }
-    }
-    setName("")
-    setEmail("")
-    setOldName("")
-  }
+ 
+ 
 
 
   return (
@@ -85,7 +68,7 @@ const [oldname , setOldName] = useState();
 
       <div className="mt-6 flex justify-end">
         <button onClick={() => {
-          credentialUpdateHandler();
+         
         }} className="bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white px-6 py-3 rounded-xl font-medium transition">
           Save Changes
         </button>

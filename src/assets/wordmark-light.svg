@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="32" viewBox="0 0 200 32" xmlns="http://www.w3.org/2000/svg">
+  <text x="0" y="24" font-family="system-ui, sans-serif" font-size="26" font-weight="600" letter-spacing="-0.6">
+    <tspan fill="#1a1a1a">Empo</tspan><tspan fill="#009F8E">Manager</tspan>
+  </text>
+</svg>

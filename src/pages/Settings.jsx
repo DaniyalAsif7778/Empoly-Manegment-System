@@ -1,7 +1,7 @@
 import React from "react";
 import UpdateProfile from "./UpdateProfile";
-import ChangePassword from "../componenets/ChangePassword";
-import Delete from "../componenets/Delete";
+import ChangePassword from "../componenets/ui/ChangePassword";
+import Delete from "../componenets/ui/Delete";
  import { useSelector } from "react-redux"; 
 const Settings = () => {
  
