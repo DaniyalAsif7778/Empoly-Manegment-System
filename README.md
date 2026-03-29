@@ -1,7 +1,7 @@
 # React + Vite
 # Employee Management System (Frontend) - Step 1
 
-![EMS Flow Diagram](src/assets/%20ems-flow.png)
+![EMS Flow Diagram](src/assets/%20readme.png)
 
 
 This project focuses on building the **frontend** for an Employee Management System with **low-level design**, **secure authentication**, **Redux Toolkit**, **better UI/UX**, and **basic SEO & performance optimizations**.
@@ -74,58 +74,70 @@ styles/ → global CSS or Tailwind config
 - Consistent naming: actions, slice names, state keys
  
  
-## Expanding the ESLint configuration
+Step 1: UI Development (Micro Steps with TypeScript)
+1. Setup & Base Layout
+Initialize React project with TypeScript
+Configure routing structure
+Create overall page layout (top section, side navigation, main content area)
+Ensure layout is responsive from the start
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. Global Styling & Design System
+Set up Tailwind CSS or UI framework
+Define colors, spacing, typography
+Maintain consistent design across all pages
+Ensure accessibility (contrast, spacing, readability)
 
-`
-🎨 Dark Theme Color Palette
-Name	Hex Code	Use Case
-Primary Background	#000000	Main background color of the website
-Surface Background	#121212	Card backgrounds, panels, modals, navbar
-Border / Divider	#333333	Border lines, table borders, dividers between sections
-Secondary Border	#444444	Optional for slightly more visible borders or lines
+3. Authentication UI
+Design login interface with proper input handling
+Add password visibility toggle behavior
+Show validation errors clearly
+Design signup flow with role selection (Admin / Employee)
+Prevent submission when inputs are invalid
 
-📝 Text Colors
-Name	Hex Code	Use Case
-Primary Text	#E0E0E0	Main content text, headings, labels
-Secondary Text	#9CA3AF	Subtext, muted descriptions, placeholder text
-Disabled Text	#6B7280	For disabled buttons, inputs, or inactive elements
+4. Navigation & Routing Behavior
+Connect all pages with routing
+Restrict access to protected pages
+Redirect users based on authentication state
+Handle invalid routes (404 page)
 
-💠 Primary Accent Colors
-Name	Hex Code	Use Case
-Primary Accent	#33DEED	Primary buttons, active icons, links, highlights
-Accent Hover	#12C4D3	Button hover background, icon hover color
-Accent Pressed	#0E939E	Button pressed state, active tab underline
-Accent Light Tint	#67E6F1	Optional background tint, gradients, badges
-Accent Extra Light	#9CEFF6	Optional for soft highlights or disabled state of accent
+5. Admin UI Flow
+Display overview information (counts, summaries)
+Show structured list of employees
+Provide actions for adding, updating, deleting employees
+Design form flow for adding and editing data
+Show confirmation and feedback for actions
 
-✅ Alert & Status Colors
-Name	Hex Code	Use Case
-Success	#00BF6B	Success notifications, completed tasks, status indicators
-Warning	#FFC107	Warning messages, caution icons, system notices
-Error	#EF4444	Error messages, validation errors, critical alerts
+6. Employee UI Flow
+Display personalized dashboard information
+Show user-specific data clearly
+Allow updating personal information
+Keep interaction simple and focused
 
-🌟 Example Applications
-Sidebar / Header: Use #121212 background with #E0E0E0 text, and highlight active items with #33DEED.
+7. Data Presentation
+Display structured data in a clean and readable format
+Handle empty states (no data available)
+Handle loading states during data fetch
+Show error states when something fails
 
-Buttons:
+8. Feedback & Interaction
+Show success messages after actions
+Show error messages for failed operations
+Add loading indicators during processes
+Disable actions when conditions are not met
 
-Primary: Background #33DEED, text #FFFFFF, hover #12C4D3, active #0E939E
+9. TypeScript Integration
+Define types for users, employees, and forms
+Apply strict typing across UI logic
+Avoid undefined or inconsistent data handling
 
-Disabled: Background #333333, text #6B7280
-
-Tables: Borders #333333, header text #E0E0E0, row text #9CA3AF
-
-Cards: Background #121212, border #333333, heading #E0E0E0
-
-Alerts:
-
-Success → #00BF6B background with #FFFFFF text
-
-Warning → #FFC107 background with #000000 or dark text
-
-Error → #EF4444 background with #FFFFFF text
+10. Responsiveness
+Adapt layout for mobile, tablet, and desktop
+Adjust navigation for smaller screens
+Ensure usability across all screen sizes
 
 
-`
+11. Final UI Flow
+Login / Signup
+→ Redirect to dashboard
+→ Admin manages employees
+→ Employee views and updates own data
